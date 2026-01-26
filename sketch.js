@@ -14,6 +14,8 @@ function windowResized() {
 
 function draw() {
   background(220);
+  if (keyIsDown(LEFT_ARROW)) {player1.x -= 10}
+  if (keyIsDown(RIGHT_ARROW)) {player1.x += 10}
   circle(player1.x,player1.y,unit/6)
 }
 
