@@ -70,7 +70,7 @@ function draw() {
 
   //render
   background(220);
-  image(img,unit_offset.x,unit_offset.y,unit,unit,camera.x,camera.y);
+  image(img,unit_offset.x-camera.x,unit_offset.y-camera.y,unit,unit);
 
   if (player1.y < player2.y){
     circle(player1.x-camera.x+unit_offset.x,player1.y-camera.y+unit_offset.y,unit/12)
