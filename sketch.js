@@ -2,6 +2,8 @@ let player1 = {x:0,y:0,dx:0,dy:0}
 let player2 = {x:0,y:0,dx:0,dy:0}
 let camera = {x:0,y:0}
 let move_speed = 300 //move speed is expressed as a fraction of the entire screen per frame so a speed of 4 would take 4 seconds to cross the screen
+let unit
+let unit_offset = {x:0,y:0}
 
 function preload(){
   img = loadImage('Home1.png');
@@ -10,19 +12,20 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   unit = (windowWidth+windowHeight)/2 //unit is the average of the height and width of the screen, use it for all scaling and co-ordinates.
+  unit_offset.x = (windowWidth-unit)/2
+  unit_offset.y = (windowHeight-unit)/2
   player1 = {x:0.5*unit,y:0.5*unit}
   player2 = {x:0.5*unit,y:0.5*unit}
   noSmooth();
 }
 function windowResized() {
   resizeCanvas(windowWidth,windowHeight);
-  unit = (windowWidth+windowHeight)/2
+  unit = (windowWidth+windowHeight)/2 //unit is the average of the height and width of the screen, use it for all scaling and co-ordinates.
+  unit_offset.x = (windowWidth-unit)/2
+  unit_offset.y = (windowHeight-unit)/2
 }
 
 function draw() {
-  background(220);
-  image(img,0+camera.x,0+camera.y,unit,unit);
-  
   //reset delta values
   player1.dx = 0
   player1.dy = 0
@@ -59,15 +62,25 @@ function draw() {
   player2.x += player2.dx
   player2.y += player2.dy
 
+  //find camera position
+  camera.x = (((player1.x+player2.x)/2)-unit/2) //average coordinate - half screen width = displacement from intended center
+  camera.y = (((player1.y+player2.y)/2)-unit/2)
+
+  //find camera zoom
+
   //render
+  background(220);
+  image(img,unit_offset.x,unit_offset.y,unit,unit,camera.x,camera.y);
+
   if (player1.y < player2.y){
-    circle(player1.x,player1.y,unit/12)
-    circle(player2.x,player2.y,unit/12)
+    circle(player1.x-camera.x+unit_offset.x,player1.y-camera.y+unit_offset.y,unit/12)
+    circle(player2.x-camera.x+unit_offset.x,player2.y-camera.y+unit_offset.y,unit/12)
   }
   else{
-    circle(player2.x,player2.y,unit/12)
-    circle(player1.x,player1.y,unit/12)
+    circle(player2.x-camera.x+unit_offset.x,player2.y-camera.y+unit_offset.y,unit/12)
+    circle(player1.x-camera.x+unit_offset.x,player1.y-camera.y+unit_offset.y,unit/12)
 
   }
+  //square(unit_offset.x,unit_offset.y,unit)
 }
 
