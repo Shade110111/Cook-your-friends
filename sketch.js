@@ -1,7 +1,7 @@
 let player1 = {x:0,y:0,dx:0,dy:0}
 let player2 = {x:0,y:0,dx:0,dy:0}
 let camera = {x:0,y:0}
-let move_speed = 400 //move speed is expressed as a fraction of the entire screen per frame so a speed of 4 would take 4 seconds to cross the screen
+let move_speed = 300 //move speed is expressed as a fraction of the entire screen per frame so a speed of 4 would take 4 seconds to cross the screen
 
 function preload(){
   img = loadImage('Home1.png');
@@ -51,6 +51,8 @@ function draw() {
     player2.dy = player2.dy/1.414214
   }
 
+  //collision
+
   //add delta to position
   player1.x += player1.dx
   player1.y += player1.dy
@@ -65,6 +67,7 @@ function draw() {
   else{
     circle(player2.x,player2.y,unit/12)
     circle(player1.x,player1.y,unit/12)
+
   }
 }
 
