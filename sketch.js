@@ -20,9 +20,20 @@ function setup() {
 }
 function windowResized() {
   resizeCanvas(windowWidth,windowHeight);
+  old_unit = unit
   unit = (windowWidth+windowHeight)/2 //unit is the average of the height and width of the screen, use it for all scaling and co-ordinates.
   unit_offset.x = (windowWidth-unit)/2
   unit_offset.y = (windowHeight-unit)/2
+
+  //recalculate player positions
+  player1.x = (player1.x/old_unit)*unit
+  player1.y = (player1.y/old_unit)*unit
+  player2.x = (player2.x/old_unit)*unit
+  player2.y = (player2.y/old_unit)*unit
+
+  //recalculate level position
+  camera.x = (camera.x/old_unit)*unit
+  camera.y = (camera.y/old_unit)*unit
 }
 
 function draw() {
@@ -70,7 +81,8 @@ function draw() {
 
   //render
   background(220);
-  image(img,unit_offset.x-camera.x,unit_offset.y-camera.y,unit,unit);
+  //image(img,unit_offset.x-camera.x,unit_offset.y-camera.y);
+  image(img,unit_offset.x,unit_offset.y,unit,unit,camera.x,camera.y)
 
   if (player1.y < player2.y){
     circle(player1.x-camera.x+unit_offset.x,player1.y-camera.y+unit_offset.y,unit/12)
@@ -83,4 +95,3 @@ function draw() {
   }
   //square(unit_offset.x,unit_offset.y,unit)
 }
-
