@@ -14,8 +14,8 @@ function setup() {
   unit = (windowWidth+windowHeight)/2 //unit is the average of the height and width of the screen, use it for all scaling and co-ordinates.
   unit_offset.x = (windowWidth-unit)/2
   unit_offset.y = (windowHeight-unit)/2
-  player1 = {x:0.5*unit,y:0.5*unit}
-  player2 = {x:0.5*unit,y:0.5*unit}
+  player1 = {x:1*unit,y:1*unit}
+  player2 = {x:1*unit,y:1*unit}
   noSmooth();
 }
 function windowResized() {
@@ -75,14 +75,13 @@ function draw() {
 
   //find camera position
   camera.x = (((player1.x+player2.x)/2)-unit/2) //average coordinate - half screen width = displacement from intended center
-  camera.y = (((player1.y+player2.y)/2)-unit/2)
+  camera.y = (((player1.y+player2.y)/2)-unit/2) //essentially camera is offset in pixels from spawn
 
   //find camera zoom
 
   //render
   background(220);
-  //image(img,unit_offset.x-camera.x,unit_offset.y-camera.y);
-  image(img,unit_offset.x,unit_offset.y,unit,unit,camera.x,camera.y)
+  image(img,unit_offset.x,unit_offset.y,unit,unit,camera.x-unit/2,camera.y-unit/2)
 
   if (player1.y < player2.y){
     circle(player1.x-camera.x+unit_offset.x,player1.y-camera.y+unit_offset.y,unit/12)
@@ -93,5 +92,4 @@ function draw() {
     circle(player1.x-camera.x+unit_offset.x,player1.y-camera.y+unit_offset.y,unit/12)
 
   }
-  //square(unit_offset.x,unit_offset.y,unit)
 }
