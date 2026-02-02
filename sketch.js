@@ -1,7 +1,7 @@
 let player1 = {x:0,y:0,dx:0,dy:0}
 let player2 = {x:0,y:0,dx:0,dy:0}
 let camera = {x:0,y:0,zoom:0}
-let move_speed = 300 //move speed is absolute units
+let move_speed = 10 //move speed is absolute units
 let unit //square real screen
 let unit_offset = {x:0,y:0}
 let level_data = {side:1200}
@@ -80,14 +80,18 @@ function draw() {
     camera.zoom = diff(player1.y,player2.y)
   }
   //zoom is the largest distance in x or y between players
-  zoom += 0.1*unit //add some space on the sides
+  camera.zoom += 0.1*unit //add some space on the sides
+  //zoom effectively replaces unit
 
 
 //note: zoom working so now jus fix render to work with it and new absolute values
 
   //render
   background(220);
-  image(level,(-(camera.x-0.5*level_data.width)),(-(camera.y-0.5*level_data.height)),level_data.width,level_data.height) //-0.5 unit becuase the camera co-ords are for the middle but the image is drawn from the top left, negate because the image moves against the cameras movements
+  image(level,(-(camera.x-0.5*camera.zoom)),(-(camera.y-0.5*camera.zoom)),camera.zoom,camera.zoom) //-0.5 unit becuase the camera co-ords are for the middle but the image is drawn from the top left, negate because the image moves against the cameras movements
+  print(-(camera.x-0.5*level_data.side))
+  print(-(camera.y-0.5*level_data.side))
+  print(level_data.side)
 
   if (player1.y < player2.y){
     circle(player1.x,player1.y)
