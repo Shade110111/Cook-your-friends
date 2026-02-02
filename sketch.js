@@ -1,12 +1,13 @@
 let player1 = {x:0,y:0,dx:0,dy:0}
 let player2 = {x:0,y:0,dx:0,dy:0}
-let camera = {x:0,y:0}
-let move_speed = 300 //move speed is expressed as a fraction of the entire screen per frame so a speed of 4 would take 4 seconds to cross the screen
-let unit
+let camera = {x:0,y:0,zoom:0}
+let move_speed = 300 //move speed is absolute units
+let unit //square real screen
 let unit_offset = {x:0,y:0}
+let level_data = {side:1200}
 
 function preload(){
-  img = loadImage('Home1.png');
+  level = loadImage('Home1.png');
 }
 
 function setup() {
@@ -14,8 +15,8 @@ function setup() {
   unit = (windowWidth+windowHeight)/2 //unit is the average of the height and width of the screen, use it for all scaling and co-ordinates.
   unit_offset.x = (windowWidth-unit)/2
   unit_offset.y = (windowHeight-unit)/2
-  player1 = {x:1*unit,y:1*unit}
-  player2 = {x:1*unit,y:1*unit}
+  player1 = {x:0.5*unit,y:0.5*unit}
+  player2 = {x:0.5*unit,y:0.5*unit}
   noSmooth();
 }
 function windowResized() {
@@ -24,16 +25,10 @@ function windowResized() {
   unit = (windowWidth+windowHeight)/2 //unit is the average of the height and width of the screen, use it for all scaling and co-ordinates.
   unit_offset.x = (windowWidth-unit)/2
   unit_offset.y = (windowHeight-unit)/2
+}
 
-  //recalculate player positions
-  player1.x = (player1.x/old_unit)*unit
-  player1.y = (player1.y/old_unit)*unit
-  player2.x = (player2.x/old_unit)*unit
-  player2.y = (player2.y/old_unit)*unit
-
-  //recalculate level position
-  camera.x = (camera.x/old_unit)*unit
-  camera.y = (camera.y/old_unit)*unit
+function diff(a,b){
+  return Math.abs(a-b);
 }
 
 function draw() {
@@ -45,14 +40,14 @@ function draw() {
 
   //get inputs
   if (keyIsPressed == true){
-    if (keyIsDown(65)) {player1.dx -= unit/move_speed}; //65 is keycode for a
-    if (keyIsDown(68)) {player1.dx += unit/move_speed}; //68 is keycode for d
-    if (keyIsDown(87)) {player1.dy -= unit/move_speed}; //87 is keycode for w
-    if (keyIsDown(83)) {player1.dy += unit/move_speed}; //83 is keycode for s
-    if (keyIsDown(LEFT_ARROW)) {player2.dx -= unit/move_speed};
-    if (keyIsDown(RIGHT_ARROW)) {player2.dx += unit/move_speed};
-    if (keyIsDown(UP_ARROW)) {player2.dy -= unit/move_speed};
-    if (keyIsDown(DOWN_ARROW)) {player2.dy += unit/move_speed};
+    if (keyIsDown(65)) {player1.dx -= move_speed}; //65 is keycode for a
+    if (keyIsDown(68)) {player1.dx += move_speed}; //68 is keycode for d
+    if (keyIsDown(87)) {player1.dy -= move_speed}; //87 is keycode for w
+    if (keyIsDown(83)) {player1.dy += move_speed}; //83 is keycode for s
+    if (keyIsDown(LEFT_ARROW)) {player2.dx -= move_speed};
+    if (keyIsDown(RIGHT_ARROW)) {player2.dx += move_speed};
+    if (keyIsDown(UP_ARROW)) {player2.dy -= move_speed};
+    if (keyIsDown(DOWN_ARROW)) {player2.dy += move_speed};
   }
 
   //normalise movement
@@ -74,22 +69,34 @@ function draw() {
   player2.y += player2.dy
 
   //find camera position
-  camera.x = (((player1.x+player2.x)/2)-unit/2) //average coordinate - half screen width = displacement from intended center
-  camera.y = (((player1.y+player2.y)/2)-unit/2) //essentially camera is offset in pixels from spawn
+  camera.x = (player1.x+player2.x)/2
+  camera.y = (player1.y+player2.y)/2
 
   //find camera zoom
+  if (diff(player1.x,player2.x) > diff(player1.y,player2.y)){
+    camera.zoom = diff(player1.x,player2.x)
+  }
+  else {
+    camera.zoom = diff(player1.y,player2.y)
+  }
+  //zoom is the largest distance in x or y between players
+  zoom += 0.1*unit //add some space on the sides
+
+
+//note: zoom working so now jus fix render to work with it and new absolute values
 
   //render
   background(220);
-  image(img,unit_offset.x,unit_offset.y,unit,unit,camera.x-unit/2,camera.y-unit/2)
+  image(level,(-(camera.x-0.5*level_data.width)),(-(camera.y-0.5*level_data.height)),level_data.width,level_data.height) //-0.5 unit becuase the camera co-ords are for the middle but the image is drawn from the top left, negate because the image moves against the cameras movements
 
   if (player1.y < player2.y){
+    circle(player1.x,player1.y)
+
     circle(player1.x-camera.x+unit_offset.x,player1.y-camera.y+unit_offset.y,unit/12)
     circle(player2.x-camera.x+unit_offset.x,player2.y-camera.y+unit_offset.y,unit/12)
   }
   else{
-    circle(player2.x-camera.x+unit_offset.x,player2.y-camera.y+unit_offset.y,unit/12)
-    circle(player1.x-camera.x+unit_offset.x,player1.y-camera.y+unit_offset.y,unit/12)
+    
 
   }
 }
