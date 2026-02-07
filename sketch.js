@@ -15,8 +15,8 @@ function setup() {
   unit = (windowWidth+windowHeight)/2 //unit is the average of the height and width of the screen, use it for all scaling and co-ordinates.
   unit_offset.x = (windowWidth-unit)/2
   unit_offset.y = (windowHeight-unit)/2
-  player1 = {x:0.5*unit,y:0.5*unit}
-  player2 = {x:0.5*unit,y:0.5*unit}
+  player1 = {x:unit/2,y:+unit/2}
+  player2 = {x:+unit/2,y:+unit/2}
   noSmooth();
 }
 function windowResized() {
@@ -75,12 +75,14 @@ function draw() {
   //find camera zoom
   if (diff(player1.x,player2.x) > diff(player1.y,player2.y)){
     camera.zoom = diff(player1.x,player2.x)
+    print("x")
   }
   else {
     camera.zoom = diff(player1.y,player2.y)
+    print("y")
   }
   //zoom is the largest distance in x or y between players
-  camera.zoom += 0.1*unit //add some space on the sides
+  camera.zoom += 0.5*unit //add some space on the sides
   //zoom effectively replaces unit
 
 
@@ -88,11 +90,9 @@ function draw() {
 
   //render
   background(220);
-  image(level,(-(camera.x-0.5*camera.zoom)),(-(camera.y-0.5*camera.zoom)),camera.zoom,camera.zoom) //-0.5 unit becuase the camera co-ords are for the middle but the image is drawn from the top left, negate because the image moves against the cameras movements
-  print(-(camera.x-0.5*level_data.side))
-  print(-(camera.y-0.5*level_data.side))
-  print(level_data.side)
-
+  image(level,0,0,windowWidth,windowHeight,camera.x-camera.zoom/2,camera.y-camera.zoom/2,width,height,CONTAIN)
+  //image(level,(-(camera.x-0.5*camera.zoom)),(-(camera.y-0.5*camera.zoom)),camera.zoom,camera.zoom) //-0.5 unit becuase the camera co-ords are for the middle but the image is drawn from the top left, negate because the image moves against the cameras movements
+  print(zoom)
   if (player1.y < player2.y){
     circle(player1.x,player1.y)
 
