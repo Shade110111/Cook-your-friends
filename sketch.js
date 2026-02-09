@@ -1,17 +1,19 @@
-let player1 = {x:508,y:512,dx:0,dy:0}
-let player2 = {x:516,y:512,dx:0,dy:0}
+let player1 = {x:508,y:512,dx:0,dy:0,item:"none"}
+let player2 = {x:516,y:512,dx:0,dy:0,item:"none"}
 let camera = {x:0,y:0,sw:0,sh:0}
-let move_speed = 2 //move speed is absolute units
+let move_speed = 1 //move speed is absolute units
 
 
 
 function preload(){
   level = loadImage('Level.png');
+  controls = loadImage('Controls.png');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noSmooth();
+  frameRate(60);
 }
 
 function windowResized() {
@@ -23,11 +25,14 @@ function diff(a,b){ //quickly find the difference between two values
 }
 
 function pickup(player_number){
-
+//if holding something drop it
+//add item to inventory
+//remove item from level
 }
 
 function drop(player_number){
-  
+  //if near workstation use workstation and lose item
+  //if else drop item and remove from inventory
 }
 
 function draw() {
@@ -90,7 +95,7 @@ function draw() {
   //render
   background(220);
   image(level,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
-  
+  fill(255,255,255);
   if (player1.y < player2.y){
     circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,30)
     circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,30)
@@ -99,4 +104,8 @@ function draw() {
     circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,30)
     circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,30)
   }
+  //controls
+  fill(0,0,0);
+  rect(0,windowHeight-16,windowWidth,16);
+  image(controls,0,windowHeight-16,controls.width/2,controls.height/2);
 }
