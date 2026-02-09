@@ -1,7 +1,7 @@
 let player1 = {x:0,y:0,dx:0,dy:0}
 let player2 = {x:0,y:0,dx:0,dy:0}
-let camera = {x:0,y:0}
-let move_speed = 5 //move speed is absolute units
+let camera = {x:0,y:0,sw:0,sh:0}
+let move_speed = 2 //move speed is absolute units
 
 
 
@@ -59,23 +59,32 @@ function draw() {
   player2.x += player2.dx
   player2.y += player2.dy
 
-  //find camera position
-  camera.x = (player1.x+player2.x)/2
-  camera.y = (player1.y+player2.y)/2
-
   //find camera zoom
+  camera.sw = diff(player1.x,player2.x)+windowWidth/5
+  camera.sh = diff(player1.y,player2.y)+windowHeight/5
+  //reset larger of two camera zooms
+  if (camera.sw/windowWidth > camera.sh/windowHeight){
+    camera.sh = camera.sw/windowWidth*windowHeight
+  }
+  else{
+    camera.sw = camera.sh/windowHeight*windowWidth
+  }
 
+
+  //find camera position (top left)
+  camera.x = ((player1.x+player2.x)/2)-camera.sw/2
+  camera.y = ((player1.y+player2.y)/2)-camera.sh/2
 
   //render
   background(220);
-  image(level,0,0,windowWidth,windowHeight,camera.x-windowWidth/2,camera.y-windowHeight/2,width,height,CONTAIN)
+  image(level,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
   
   if (player1.y < player2.y){
-    circle(player1.x-camera.x+windowWidth/2,player1.y-camera.y+windowHeight/2,10)
-    circle(player2.x-camera.x+windowWidth/2,player2.y-camera.y+windowHeight/2,10)
+    circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,30)
+    circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,30)
   }
   else{
-    circle(player2.x-camera.x+windowWidth/2,player2.y-camera.y+windowHeight/2,10)
-    circle(player1.x-camera.x+windowWidth/2,player1.y-camera.y+windowHeight/2,10)
+    circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,30)
+    circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,30)
   }
 }
