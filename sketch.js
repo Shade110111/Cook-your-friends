@@ -1,5 +1,5 @@
-let player1 = {x:0,y:0,dx:0,dy:0}
-let player2 = {x:0,y:0,dx:0,dy:0}
+let player1 = {x:508,y:512,dx:0,dy:0}
+let player2 = {x:516,y:512,dx:0,dy:0}
 let camera = {x:0,y:0,sw:0,sh:0}
 let move_speed = 2 //move speed is absolute units
 
@@ -22,6 +22,14 @@ function diff(a,b){ //quickly find the difference between two values
   return Math.abs(a-b);
 }
 
+function pickup(player_number){
+
+}
+
+function drop(player_number){
+  
+}
+
 function draw() {
   //reset delta values
   player1.dx = 0
@@ -35,10 +43,14 @@ function draw() {
     if (keyIsDown(68)) {player1.dx += move_speed}; //68 is keycode for d
     if (keyIsDown(87)) {player1.dy -= move_speed}; //87 is keycode for w
     if (keyIsDown(83)) {player1.dy += move_speed}; //83 is keycode for s
+    if (keyIsDown(67)) {pickup(1)}; //67 is keycode for c
+    if (keyIsDown(88)) {drop(1)}; //88 is keycode for x
     if (keyIsDown(LEFT_ARROW)) {player2.dx -= move_speed};
     if (keyIsDown(RIGHT_ARROW)) {player2.dx += move_speed};
     if (keyIsDown(UP_ARROW)) {player2.dy -= move_speed};
     if (keyIsDown(DOWN_ARROW)) {player2.dy += move_speed};
+    if (keyIsDown(191)) {pickup(2)}; //191 is keycode for /
+    if (keyIsDown(190)) {drop(2)}; //190 is keycode for .
   }
 
   //normalise movement
