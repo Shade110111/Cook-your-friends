@@ -1,7 +1,7 @@
 let player1 = {x:508,y:512,dx:0,dy:0,item:"none"}
 let player2 = {x:516,y:512,dx:0,dy:0,item:"none"}
 let camera = {x:0,y:0,sw:0,sh:0}
-let move_speed = 1 //move speed is absolute units
+let move_speed = 1.4 //move speed is absolute units
 
 
 
@@ -77,8 +77,8 @@ function draw() {
   player2.y += player2.dy
 
   //find camera zoom
-  camera.sw = diff(player1.x,player2.x)+windowWidth/5
-  camera.sh = diff(player1.y,player2.y)+windowHeight/5
+  camera.sw = 0.8*camera.sw + (diff(player1.x,player2.x)+windowWidth/5)*0.2 //multiply is for smoothing
+  camera.sh = 0.8*camera.sh + (diff(player1.y,player2.y)+windowHeight/5)*0.2 //multiply is for smoothing
   //reset larger of two camera zooms
   if (camera.sw/windowWidth > camera.sh/windowHeight){
     camera.sh = camera.sw/windowWidth*windowHeight
@@ -89,8 +89,8 @@ function draw() {
 
 
   //find camera position (top left)
-  camera.x = ((player1.x+player2.x)/2)-camera.sw/2
-  camera.y = ((player1.y+player2.y)/2)-camera.sh/2
+  camera.x = 0.8*camera.x + (((player1.x+player2.x)/2)-camera.sw/2)*0.2 //multiply is for smoothing
+  camera.y = 0.8*camera.y + (((player1.y+player2.y)/2)-camera.sh/2)*0.2 //multiply is for smoothing
 
   //render
   background(220);
