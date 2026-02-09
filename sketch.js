@@ -7,7 +7,7 @@ let unit_offset = {x:0,y:0}
 let level_data = {side:1200}
 
 function preload(){
-  level = loadImage('Home1.png');
+  level = loadImage('Level.png');
 }
 
 function setup() {
