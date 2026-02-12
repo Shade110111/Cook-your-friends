@@ -1,13 +1,13 @@
 let player1 = {x:508,y:512,dx:0,dy:0,item:"none"}
 let player2 = {x:516,y:512,dx:0,dy:0,item:"none"}
-let camera = {x:0,y:0,sw:0,sh:0}
+let camera = {x:0,y:0,sw:0,sh:0} //sw = screen width by absolute coordinate  sh = screen height by absolute coordinate 
 let move_speed = 1.4 //move speed is absolute units
 
 
 
 function preload(){
-  level = loadImage('Level.png');
-  controls = loadImage('Controls.png');
+  level = loadImage('level_lineart.png');
+  controls = loadImage('controls.png');
 }
 
 function setup() {
@@ -92,19 +92,26 @@ function draw() {
   camera.x = 0.8*camera.x + (((player1.x+player2.x)/2)-camera.sw/2)*0.2 //multiply is for smoothing
   camera.y = 0.8*camera.y + (((player1.y+player2.y)/2)-camera.sh/2)*0.2 //multiply is for smoothing
 
-  //render
+  //render level
   background(220);
   image(level,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
+
+  //visualise collision shapes
+  fill(240,240,255);
+  circle(((500-camera.x)/camera.sw)*windowWidth,((500-camera.y)/camera.sh)*windowHeight,100/camera.sh*windowHeight)
+
+  //render players
   fill(255,255,255);
   if (player1.y < player2.y){
-    circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,30)
-    circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,30)
+    circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,15/camera.sh*windowHeight)
+    circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,15/camera.sh*windowHeight)
   }
   else{
-    circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,30)
-    circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,30)
+    circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,15/camera.sh*windowHeight)
+    circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,15/camera.sh*windowHeight)
   }
-  //controls
+ 
+  //render controls
   fill(0,0,0);
   rect(0,windowHeight-16,windowWidth,16);
   image(controls,0,windowHeight-16,controls.width/2,controls.height/2);
