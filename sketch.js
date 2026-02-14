@@ -87,6 +87,7 @@ function draw() {
 
   //collision
 
+
   //add delta to position
   player1.x += player1.dx
   player1.y += player1.dy
@@ -116,7 +117,7 @@ function draw() {
   //visualise collision shapes
   fill(240,240,255);
   //circle(((500-camera.x)/camera.sw)*windowWidth,((500-camera.y)/camera.sh)*windowHeight,100/camera.sh*windowHeight)
-  rect(absolute_to_local_x(500),absolute_to_local_y(500),absolute_to_local_w(100),absolute_to_local_h(20))
+  rect(absolute_to_local_x(450),absolute_to_local_y(450),absolute_to_local_w(100),absolute_to_local_h(20))
 
   //render players
   fill(255,255,255);
@@ -133,4 +134,9 @@ function draw() {
   fill(0,0,0);
   rect(0,windowHeight-16,windowWidth,16);
   image(controls,0,windowHeight-16,controls.width/2,controls.height/2);
+
+  //testing text
+  fill('tomato');
+  textSize(32);
+  text('colliding',20,60);
 }
