@@ -1,6 +1,6 @@
 let player1 = {x:508,y:512,dx:0,dy:0,item:"none"}
 let player2 = {x:516,y:512,dx:0,dy:0,item:"none"}
-let camera = {x:0,y:0,sw:0,sh:0} //sw = screen width by absolute coordinate  sh = screen height by absolute coordinate 
+let camera = {x:0,y:0,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
 
 
@@ -22,6 +22,23 @@ function windowResized() {
 
 function diff(a,b){ //quickly find the difference between two values
   return Math.abs(a-b);
+}
+
+//convert absolute coordinate values into their camera relative equivalent
+function absolute_to_local_x(x){
+  return (((x-camera.x)/camera.sw)*windowWidth)
+}
+
+function absolute_to_local_y(y){
+  return (((y-camera.y)/camera.sh)*windowHeight)
+}
+
+function absolute_to_local_w(w){
+  return (w/camera.sw*windowWidth)
+}
+
+function absolute_to_local_h(h){
+  return (h/camera.sh*windowHeight)
 }
 
 function pickup(player_number){
@@ -98,17 +115,18 @@ function draw() {
 
   //visualise collision shapes
   fill(240,240,255);
-  circle(((500-camera.x)/camera.sw)*windowWidth,((500-camera.y)/camera.sh)*windowHeight,100/camera.sh*windowHeight)
+  //circle(((500-camera.x)/camera.sw)*windowWidth,((500-camera.y)/camera.sh)*windowHeight,100/camera.sh*windowHeight)
+  rect(absolute_to_local_x(500),absolute_to_local_y(500),absolute_to_local_w(100),absolute_to_local_h(20))
 
   //render players
   fill(255,255,255);
   if (player1.y < player2.y){
-    circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,15/camera.sh*windowHeight)
-    circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,15/camera.sh*windowHeight)
+    circle(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
+    circle(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15));
   }
   else{
-    circle(((player2.x-camera.x)/camera.sw)*windowWidth,((player2.y-camera.y)/camera.sh)*windowHeight,15/camera.sh*windowHeight)
-    circle(((player1.x-camera.x)/camera.sw)*windowWidth,((player1.y-camera.y)/camera.sh)*windowHeight,15/camera.sh*windowHeight)
+    circle(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15));
+    circle(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
   }
  
   //render controls
