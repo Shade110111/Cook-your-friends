@@ -7,4 +7,6 @@ shade notes: unit was a really bad idea and caused bars on the top and bottom of
 
 shade notes: mac dosent care about capitals in filenames so if switching to windows or linux and getting odd loading errors it could be because a file is referenced wrong.
 
+shade notes: the original map has small corridoors and ramps, these would be fine if I could get sliding collision working that takes the component of the force, however as this would require normals for a collision mesh which would be quite costly and difficult to impliment I have opted for a more simple form of collision that stops illegal displacement, this however makes the walls feel sticky instead of slidey and so I have requested that the small corridoors be replaced with wider ones so the player is less likely to be annoyed by them.
+
 

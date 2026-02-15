@@ -1,6 +1,6 @@
-let player1 = {x:508,y:512,dx:0,dy:0,item:"none"}
-let player2 = {x:516,y:512,dx:0,dy:0,item:"none"}
-let camera = {x:0,y:0,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
+let player1 = {x:400,y:512,dx:0,dy:0,item:"none"}
+let player2 = {x:624,y:512,dx:0,dy:0,item:"none"}
+let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
 
 
@@ -116,8 +116,15 @@ function draw() {
 
   //visualise collision shapes
   fill(240,240,255);
-  //circle(((500-camera.x)/camera.sw)*windowWidth,((500-camera.y)/camera.sh)*windowHeight,100/camera.sh*windowHeight)
-  rect(absolute_to_local_x(450),absolute_to_local_y(450),absolute_to_local_w(100),absolute_to_local_h(20))
+  circle(absolute_to_local_x(470),absolute_to_local_y(535),absolute_to_local_w(100))
+  circle(absolute_to_local_x(540),absolute_to_local_y(535),absolute_to_local_w(100))
+  circle(absolute_to_local_x(510),absolute_to_local_y(535),absolute_to_local_w(110))
+  //NW ramp
+  circle(absolute_to_local_x(450),absolute_to_local_y(500),absolute_to_local_w(40))
+  circle(absolute_to_local_x(440),absolute_to_local_y(482),absolute_to_local_w(40))
+  circle(absolute_to_local_x(429),absolute_to_local_y(465),absolute_to_local_w(40))
+  //sw ramp
+  circle(absolute_to_local_x(420),absolute_to_local_y(580),absolute_to_local_w(40))
 
   //render players
   fill(255,255,255);
