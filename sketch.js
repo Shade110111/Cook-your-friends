@@ -114,7 +114,7 @@ function draw() {
   background(220);
   image(level,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
 
-  //visualise collision shapes
+  //visualise collision shapes note: if we make an algorithm to autoplace corridorrs of a consistent size snapping will always work to the nearest circle and walls will be smooth.
   fill(240,240,255);
   circle(absolute_to_local_x(470),absolute_to_local_y(535),absolute_to_local_w(100))
   circle(absolute_to_local_x(540),absolute_to_local_y(535),absolute_to_local_w(100))
