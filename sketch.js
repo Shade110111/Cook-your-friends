@@ -160,5 +160,5 @@ function draw() {
   //testing text
   fill('tomato');
   textSize(32);
-  text('colliding',20,60);
+  //text('colliding',20,60);
 }
