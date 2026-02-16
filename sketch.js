@@ -1,7 +1,8 @@
-let player1 = {x:400,y:512,dx:0,dy:0,item:"none"}
-let player2 = {x:624,y:512,dx:0,dy:0,item:"none"}
+let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,item:"none"}
+let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,item:"none"}
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
+let corridor_width = 35
 
 
 
@@ -49,10 +50,31 @@ function make_corridor(x1,y1,x2,y2){
   y2 -= y1 //x2 and y2 are now relative displacement from x1 and y1
   x2 = x2 / segment_length
   y2 = y2 / segment_length //x2 and y2 are now relative displacement to the first circle
+  //initialise smallest distance
   for (let i = segment_length;i>-1;i-=1){
-    circle(absolute_to_local_x(x1+x2*i),absolute_to_local_y(y1+y2*i),absolute_to_local_w(35))
+    //render circles (testing)
+    circle(absolute_to_local_x(x1+x2*i),absolute_to_local_y(y1+y2*i),absolute_to_local_w(corridor_width))
+    //find distances to circles
+    player1.circle_distance = sqrt((player1.x-(x1+x2*i))^2+(player1.y-(y1+y2*i))^2)
+    player2.circle_distance = sqrt((player2.x-(x1+x2*i))^2+(player2.y-(y1+y2*i))^2)
+    if (player1.circle_distance > corridor_width/2){ //if colliding (player has left the level)
+      player1.colliding_flag = true
+      print("colliding")
+      if (player1.circle_distance < player1.circle_smallest_distance){ 
+        player1.circle_smallest_distance = player1.circle_distance
+        player1.nearest_collision_circle = [x1+x2*i,y1+y2*i] //output: circle to move towards
+      }
+    }
+    if (player2.circle_distance > corridor_width/2){ //if colliding (player has left the level)
+      player2.colliding_flag = true
+      if (player2.circle_distance < player2.circle_smallest_distance){ 
+        player2.circle_smallest_distance = player2.circle_distance
+        player2.nearest_collision_circle = [x1+x2*i,y1+y2*i] //output: circle to move towards
+      }
+    }
   }
 }
+//!!!!!!!!!!note remember to not check circles far away
 
 function pickup(player_number){
 //if holding something drop it
@@ -71,6 +93,10 @@ function draw() {
   player1.dy = 0
   player2.dx = 0
   player2.dy = 0
+  player1.colliding_flag = false //if true you have left the level (yes I know this is backwards)
+  player2.colliding_flag = false
+  player1.circle_smallest_distance = 9999
+  player2.circle_smallest_distance = 9999
 
   //get inputs
   if (keyIsPressed == true){
@@ -99,7 +125,11 @@ function draw() {
   }
 
   //collision
-
+  make_corridor(452,500,417,447);
+  make_corridor(380,460,370,475);
+  make_corridor(387,443,350,475);
+  make_corridor(403,450,470,429);
+  make_corridor(470,429,520,427);
 
   //add delta to position
   player1.x += player1.dx
@@ -127,7 +157,7 @@ function draw() {
   background(220);
   image(level,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
 
-  //visualise collision shapes note: if we make an algorithm to autoplace corridorrs of a consistent size snapping will always work to the nearest circle and walls will be smooth.
+  //visualise collision shapes, comment this out later as it is just for testing
   fill(240,240,255);
   circle(absolute_to_local_x(470),absolute_to_local_y(535),absolute_to_local_w(100))
   circle(absolute_to_local_x(540),absolute_to_local_y(535),absolute_to_local_w(100))
