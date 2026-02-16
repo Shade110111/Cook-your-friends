@@ -14,6 +14,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noSmooth();
   frameRate(60);
+  strokeWeight(1);
 }
 
 function windowResized() {
@@ -39,6 +40,18 @@ function absolute_to_local_w(w){
 
 function absolute_to_local_h(h){
   return (h/camera.sh*windowHeight)
+}
+
+function make_corridor(x1,y1,x2,y2){
+  segment_length = sqrt((diff(x1,x2)^2)+(diff(y1,y2)^2)) //find length of line segment
+  segment_length = int(segment_length/2) //lower resolution
+  x2 -= x1
+  y2 -= y1 //x2 and y2 are now relative displacement from x1 and y1
+  x2 = x2 / segment_length
+  y2 = y2 / segment_length //x2 and y2 are now relative displacement to the first circle
+  for (let i = segment_length;i>-1;i-=1){
+    circle(absolute_to_local_x(x1+x2*i),absolute_to_local_y(y1+y2*i),absolute_to_local_w(35))
+  }
 }
 
 function pickup(player_number){
@@ -119,12 +132,14 @@ function draw() {
   circle(absolute_to_local_x(470),absolute_to_local_y(535),absolute_to_local_w(100))
   circle(absolute_to_local_x(540),absolute_to_local_y(535),absolute_to_local_w(100))
   circle(absolute_to_local_x(510),absolute_to_local_y(535),absolute_to_local_w(110))
-  //NW ramp
-  circle(absolute_to_local_x(450),absolute_to_local_y(500),absolute_to_local_w(40))
-  circle(absolute_to_local_x(440),absolute_to_local_y(482),absolute_to_local_w(40))
-  circle(absolute_to_local_x(429),absolute_to_local_y(465),absolute_to_local_w(40))
-  //sw ramp
-  circle(absolute_to_local_x(420),absolute_to_local_y(580),absolute_to_local_w(40))
+  //nw segment
+  make_corridor(452,500,417,447);
+  make_corridor(380,460,370,475);
+  make_corridor(387,443,350,475);
+  make_corridor(403,450,470,429);
+  make_corridor(470,429,520,427);
+
+  
 
   //render players
   fill(255,255,255);
