@@ -2,7 +2,7 @@ let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circ
 let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,item:"none"}
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
-let corridor_width = 35
+let corridor_width = 26
 
 
 
@@ -45,7 +45,7 @@ function absolute_to_local_h(h){
 
 function make_corridor(x1,y1,x2,y2){ //x1,y1 are one end of the corridor, x2,y2 are the other end
   segment_length = sqrt((diff(x1,x2)^2)+(diff(y1,y2)^2)) //find length of line segment (corridor)
-  segment_length = int(segment_length/2) //lower resolution
+  segment_length = int(segment_length) //make int
   x2 -= x1
   y2 -= y1 //x2 and y2 are now relative displacement from x1 and y1
   x2 = x2 / segment_length
@@ -82,9 +82,12 @@ function make_corridor(x1,y1,x2,y2){ //x1,y1 are one end of the corridor, x2,y2 
 function collision(){
     //alter delta values to keep players within the corridor
   if (player1.colliding_flag == false){ //colliding if within corridor, if not move player back in
-    text('uwu',50,50)
-    player1.dx = player1.dx + ((player1.nearest_collision_circle[0]-player1.x)/15)
-    player1.dy = player1.dy + ((player1.nearest_collision_circle[1]-player1.y)/15)
+    player1.dx = player1.dx + ((player1.nearest_collision_circle[0]-player1.x)/12)
+    player1.dy = player1.dy + ((player1.nearest_collision_circle[1]-player1.y)/12)
+  }
+  if (player2.colliding_flag == false){ //colliding if within corridor, if not move player back in
+    player2.dx = player2.dx + ((player2.nearest_collision_circle[0]-player2.x)/12)
+    player2.dy = player2.dy + ((player2.nearest_collision_circle[1]-player2.y)/12)
   }
 }
 //!!!!!!!!!!note remember to not check circles far away
@@ -138,15 +141,12 @@ function draw() {
   }
 
   //collision
-  
-  //test collision
-    make_corridor(400,500,600,500);
 
-  //make_corridor(452,500,417,447);
-  //make_corridor(380,460,370,475);
-  //make_corridor(387,443,350,475);
-  //make_corridor(403,450,470,429);
-  //make_corridor(470,429,520,427);
+  make_corridor(452,500,417,447);
+  make_corridor(380,460,370,475);
+  make_corridor(387,443,350,475);
+  make_corridor(403,450,470,429);
+  make_corridor(470,429,520,427);
   collision() //finally applies delta changes
 
   //add delta to position
@@ -181,14 +181,12 @@ function draw() {
   //circle(absolute_to_local_x(540),absolute_to_local_y(535),absolute_to_local_w(100))
   //circle(absolute_to_local_x(510),absolute_to_local_y(535),absolute_to_local_w(110))
   //nw segment
-  //make_corridor(452,500,417,447);
-  //make_corridor(380,460,370,475);
-  //make_corridor(387,443,350,475);
-  //make_corridor(403,450,470,429);
-  //make_corridor(470,429,520,427);
+  make_corridor(452,500,417,447);
+  make_corridor(380,460,370,475);
+  make_corridor(387,443,350,475);
+  make_corridor(403,450,470,429);
+  make_corridor(470,429,520,427);
 
-  //test collision
-  make_corridor(400,500,600,500);
 
 
   
