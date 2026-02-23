@@ -58,25 +58,33 @@ function make_corridor(x1,y1,x2,y2){ //x1,y1 are one end of the corridor, x2,y2 
     player1.circle_distance = sqrt(sq(abs(player1.x-(x1+x2*i)))+sq(abs(player1.y-(y1+y2*i))))
     player2.circle_distance = sqrt(sq(abs(player2.x-(x1+x2*i)))+sq(abs(player2.y-(y1+y2*i))))
 
-    fill('white')
-    if (player1.circle_distance > corridor_width/2){ //if colliding (player has left the corridor)
-      player1.colliding_flag = true
-      fill('black')
-      text(int(player1.circle_distance),absolute_to_local_x(x1+x2*i),absolute_to_local_y(y1+y2*i))
-      fill('tomato')
+    if (player1.circle_distance > corridor_width/2){
       if (player1.circle_distance < player1.circle_smallest_distance){ 
         player1.circle_smallest_distance = player1.circle_distance
         player1.nearest_collision_circle = [x1+x2*i,y1+y2*i] //output: circle to move towards
-        //circle(absolute_to_local_x(x1+x2*i),absolute_to_local_y(y1+y2*i),absolute_to_local_w(corridor_width))
       }
     }
-    if (player2.circle_distance > corridor_width/2){ //if colliding (player has left the corridor)
-      player2.colliding_flag = true
+    else{
+      player1.colliding_flag = true //colliding if within corridor
+    }
+    if (player2.circle_distance > corridor_width/2){
       if (player2.circle_distance < player2.circle_smallest_distance){ 
         player2.circle_smallest_distance = player2.circle_distance
         player2.nearest_collision_circle = [x1+x2*i,y1+y2*i] //output: circle to move towards
       }
     }
+    else{
+      player2.colliding_flag = true //colliding if within corridor
+    }
+  }
+}
+
+function collision(){
+    //alter delta values to keep players within the corridor
+  if (player1.colliding_flag == false){ //colliding if within corridor, if not move player back in
+    text('uwu',50,50)
+    player1.dx = player1.dx + ((player1.nearest_collision_circle[0]-player1.x)/15)
+    player1.dy = player1.dy + ((player1.nearest_collision_circle[1]-player1.y)/15)
   }
 }
 //!!!!!!!!!!note remember to not check circles far away
@@ -132,13 +140,14 @@ function draw() {
   //collision
   
   //test collision
-    make_corridor(500,500,600,500);
+    make_corridor(400,500,600,500);
 
   //make_corridor(452,500,417,447);
   //make_corridor(380,460,370,475);
   //make_corridor(387,443,350,475);
   //make_corridor(403,450,470,429);
   //make_corridor(470,429,520,427);
+  collision() //finally applies delta changes
 
   //add delta to position
   player1.x += player1.dx
@@ -179,7 +188,8 @@ function draw() {
   //make_corridor(470,429,520,427);
 
   //test collision
-  make_corridor(500,500,600,500);
+  make_corridor(400,500,600,500);
+
 
   
 
