@@ -142,11 +142,28 @@ function draw() {
 
   //collision
 
+  //nw segment
   make_corridor(452,500,417,447);
-  make_corridor(380,460,370,475);
-  make_corridor(387,443,350,475);
-  make_corridor(403,450,470,429);
-  make_corridor(470,429,520,427);
+  make_corridor(385,460,370,475);
+  make_corridor(387,443,345,475);
+  make_corridor(355,475,360,475);
+  make_corridor(403,450,465,427);
+  make_corridor(473,426,520,426);
+  //main section
+  corridor_width = 70 //corridor widths larger than 26 are buggy and so should not be used for collision, only as a shape that you can walk in
+  make_corridor(470,535,545,535);
+  corridor_width = 26
+  make_corridor(465,502,500,500);
+  make_corridor(510,500,550,510);
+  make_corridor(560,512,584,530);
+  make_corridor(586,535,586,550);
+  make_corridor(583,557,560,570);
+  make_corridor(553,573,505,577);
+  make_corridor(500,577,460,568);
+  make_corridor(455,568,435,545);
+  make_corridor(433,540,433,530);
+  make_corridor(437,527,448,515);
+
   collision() //finally applies delta changes
 
   //add delta to position
@@ -177,15 +194,28 @@ function draw() {
 
   //visualise collision shapes, comment this out later as it is just for testing
   fill(240,240,255);
-  //circle(absolute_to_local_x(470),absolute_to_local_y(535),absolute_to_local_w(100))
-  //circle(absolute_to_local_x(540),absolute_to_local_y(535),absolute_to_local_w(100))
-  //circle(absolute_to_local_x(510),absolute_to_local_y(535),absolute_to_local_w(110))
   //nw segment
   make_corridor(452,500,417,447);
-  make_corridor(380,460,370,475);
-  make_corridor(387,443,350,475);
-  make_corridor(403,450,470,429);
-  make_corridor(470,429,520,427);
+  make_corridor(385,460,370,475);
+  make_corridor(387,443,345,475);
+  make_corridor(355,475,360,475);
+  make_corridor(403,450,465,427);
+  make_corridor(473,426,520,426);
+  //main section
+  corridor_width = 70 //corridor widths larger than 26 are buggy and so should not be used for collision, only as a shape that you can walk in
+  make_corridor(470,535,545,535);
+  corridor_width = 26
+  make_corridor(465,502,500,500);
+  make_corridor(510,500,550,510);
+  make_corridor(560,512,584,530);
+  make_corridor(586,535,586,550);
+  make_corridor(583,557,560,570);
+  make_corridor(553,573,505,577);
+  make_corridor(500,577,460,568);
+  make_corridor(455,568,435,545);
+  make_corridor(433,540,433,530);
+  make_corridor(437,527,448,515);
+  
 
 
 
