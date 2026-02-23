@@ -142,7 +142,7 @@ function draw() {
 
   //collision
 
-  //nw segment
+  //nw section
   make_corridor(452,500,417,447);
   make_corridor(385,460,370,475);
   make_corridor(387,443,345,475);
@@ -163,6 +163,11 @@ function draw() {
   make_corridor(455,568,435,545);
   make_corridor(433,540,433,530);
   make_corridor(437,527,448,515);
+  //E section
+  make_corridor(600,552,646,547);
+  make_corridor(650,547,637,575);
+  make_corridor(630,585,600,564);
+  make_corridor(630,560,630,560);
 
   collision() //finally applies delta changes
 
@@ -194,7 +199,8 @@ function draw() {
 
   //visualise collision shapes, comment this out later as it is just for testing
   fill(240,240,255);
-  //nw segment
+
+  //nw section
   make_corridor(452,500,417,447);
   make_corridor(385,460,370,475);
   make_corridor(387,443,345,475);
@@ -215,6 +221,11 @@ function draw() {
   make_corridor(455,568,435,545);
   make_corridor(433,540,433,530);
   make_corridor(437,527,448,515);
+  //E section
+  make_corridor(600,552,646,547);
+  make_corridor(650,547,637,575);
+  make_corridor(630,585,600,564);
+  make_corridor(630,560,630,560);
   
 
 
