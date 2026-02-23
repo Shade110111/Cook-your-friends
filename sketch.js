@@ -7,7 +7,7 @@ let corridor_width = 35
 
 
 function preload(){
-  level = loadImage('level_lineart.png');
+  level = loadImage('Level.png');
   controls = loadImage('controls.png');
 }
 
@@ -43,29 +43,34 @@ function absolute_to_local_h(h){
   return (h/camera.sh*windowHeight)
 }
 
-function make_corridor(x1,y1,x2,y2){
-  segment_length = sqrt((diff(x1,x2)^2)+(diff(y1,y2)^2)) //find length of line segment
+function make_corridor(x1,y1,x2,y2){ //x1,y1 are one end of the corridor, x2,y2 are the other end
+  segment_length = sqrt((diff(x1,x2)^2)+(diff(y1,y2)^2)) //find length of line segment (corridor)
   segment_length = int(segment_length/2) //lower resolution
   x2 -= x1
   y2 -= y1 //x2 and y2 are now relative displacement from x1 and y1
   x2 = x2 / segment_length
-  y2 = y2 / segment_length //x2 and y2 are now relative displacement to the first circle
+  y2 = y2 / segment_length //x2 and y2 are now relative displacement to the first of many circles that will make up the corridor
   //initialise smallest distance
   for (let i = segment_length;i>-1;i-=1){
     //render circles (testing)
     circle(absolute_to_local_x(x1+x2*i),absolute_to_local_y(y1+y2*i),absolute_to_local_w(corridor_width))
     //find distances to circles
-    player1.circle_distance = sqrt((player1.x-(x1+x2*i))^2+(player1.y-(y1+y2*i))^2)
-    player2.circle_distance = sqrt((player2.x-(x1+x2*i))^2+(player2.y-(y1+y2*i))^2)
-    if (player1.circle_distance > corridor_width/2){ //if colliding (player has left the level)
+    player1.circle_distance = sqrt(sq(abs(player1.x-(x1+x2*i)))+sq(abs(player1.y-(y1+y2*i))))
+    player2.circle_distance = sqrt(sq(abs(player2.x-(x1+x2*i)))+sq(abs(player2.y-(y1+y2*i))))
+
+    fill('white')
+    if (player1.circle_distance > corridor_width/2){ //if colliding (player has left the corridor)
       player1.colliding_flag = true
-      print("colliding")
+      fill('black')
+      text(int(player1.circle_distance),absolute_to_local_x(x1+x2*i),absolute_to_local_y(y1+y2*i))
+      fill('tomato')
       if (player1.circle_distance < player1.circle_smallest_distance){ 
         player1.circle_smallest_distance = player1.circle_distance
         player1.nearest_collision_circle = [x1+x2*i,y1+y2*i] //output: circle to move towards
+        //circle(absolute_to_local_x(x1+x2*i),absolute_to_local_y(y1+y2*i),absolute_to_local_w(corridor_width))
       }
     }
-    if (player2.circle_distance > corridor_width/2){ //if colliding (player has left the level)
+    if (player2.circle_distance > corridor_width/2){ //if colliding (player has left the corridor)
       player2.colliding_flag = true
       if (player2.circle_distance < player2.circle_smallest_distance){ 
         player2.circle_smallest_distance = player2.circle_distance
@@ -125,11 +130,15 @@ function draw() {
   }
 
   //collision
-  make_corridor(452,500,417,447);
-  make_corridor(380,460,370,475);
-  make_corridor(387,443,350,475);
-  make_corridor(403,450,470,429);
-  make_corridor(470,429,520,427);
+  
+  //test collision
+    make_corridor(500,500,600,500);
+
+  //make_corridor(452,500,417,447);
+  //make_corridor(380,460,370,475);
+  //make_corridor(387,443,350,475);
+  //make_corridor(403,450,470,429);
+  //make_corridor(470,429,520,427);
 
   //add delta to position
   player1.x += player1.dx
@@ -159,15 +168,18 @@ function draw() {
 
   //visualise collision shapes, comment this out later as it is just for testing
   fill(240,240,255);
-  circle(absolute_to_local_x(470),absolute_to_local_y(535),absolute_to_local_w(100))
-  circle(absolute_to_local_x(540),absolute_to_local_y(535),absolute_to_local_w(100))
-  circle(absolute_to_local_x(510),absolute_to_local_y(535),absolute_to_local_w(110))
+  //circle(absolute_to_local_x(470),absolute_to_local_y(535),absolute_to_local_w(100))
+  //circle(absolute_to_local_x(540),absolute_to_local_y(535),absolute_to_local_w(100))
+  //circle(absolute_to_local_x(510),absolute_to_local_y(535),absolute_to_local_w(110))
   //nw segment
-  make_corridor(452,500,417,447);
-  make_corridor(380,460,370,475);
-  make_corridor(387,443,350,475);
-  make_corridor(403,450,470,429);
-  make_corridor(470,429,520,427);
+  //make_corridor(452,500,417,447);
+  //make_corridor(380,460,370,475);
+  //make_corridor(387,443,350,475);
+  //make_corridor(403,450,470,429);
+  //make_corridor(470,429,520,427);
+
+  //test collision
+  make_corridor(500,500,600,500);
 
   
 
@@ -187,8 +199,4 @@ function draw() {
   rect(0,windowHeight-16,windowWidth,16);
   image(controls,0,windowHeight-16,controls.width/2,controls.height/2);
 
-  //testing text
-  fill('tomato');
-  textSize(32);
-  //text('colliding',20,60);
 }

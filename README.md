@@ -9,4 +9,6 @@ shade notes: mac dosent care about capitals in filenames so if switching to wind
 
 shade notes: the original map has small corridoors and ramps, these would be fine if I could get sliding collision working that takes the component of the force, however as this would require normals for a collision mesh which would be quite costly and difficult to impliment I have opted for a more simple form of collision that stops illegal displacement, this however makes the walls feel sticky instead of slidey and so I have requested that the small corridoors be replaced with wider ones so the player is less likely to be annoyed by them.
 
+shade notes: morgan did the creatures and player, mikayla did half the map and some food, shade did half the map and the code
+
 
