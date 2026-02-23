@@ -11,4 +11,4 @@ shade notes: the original map has small corridoors and ramps, these would be fin
 
 shade notes: morgan did the creatures and player, mikayla did half the map and some food, shade did half the map and the code
 
-
+shade note: not only is the game a metaphor for gaining power by taking advantage of defensless masses to appeal to the powerful few but also a commentry on eating intelegent beings and reminding us that we are animals, the game is not designed to be grusome just as the food industry isn't, however we hope the public display of cannibalism may change peoples minds about the food they eat and the mindsets of powerful people that take advantage of them, they know exactly what they are doing.
