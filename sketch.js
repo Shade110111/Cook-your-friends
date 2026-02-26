@@ -253,7 +253,7 @@ function draw() {
   camera.y = 0.8*camera.y + (((player1.y+player2.y)/2)-camera.sh/2)*0.2 //multiply is for smoothing
 
   //render level
-  background(220);
+  background(240,204,133);
   image(level,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
 
   //visualise collision shapes, comment this out later as it is just for testing
