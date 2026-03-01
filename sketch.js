@@ -10,6 +10,7 @@ let subframe_counter=0;
 
 function preload(){
   level = loadImage('Level.png');
+  level_overlay = loadImage('Level_overlay.png');
   controls = loadImage('controls.png');
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
@@ -214,8 +215,8 @@ function draw() {
   make_corridor(433,540,433,530);
   make_corridor(437,527,448,515);
   //E section
-  make_corridor(600,552,646,547);
-  make_corridor(650,547,637,575);
+  make_corridor(600,552,640,547);
+  make_corridor(646,547,637,575);
   make_corridor(630,585,600,564);
   make_corridor(630,560,630,560);
   //SW section
@@ -281,8 +282,8 @@ function draw() {
   make_corridor(433,540,433,530);
   make_corridor(437,527,448,515);
   //E section
-  make_corridor(600,552,646,547);
-  make_corridor(650,547,637,575);
+  make_corridor(600,552,640,547);
+  make_corridor(646,547,637,575);
   make_corridor(630,585,600,564);
   make_corridor(630,560,630,560);
   //SW section
@@ -315,7 +316,10 @@ function draw() {
     //circle(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
     render_player1(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
   }
- 
+ //render level overlay
+ image(level_overlay,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
+
+
   //render controls
   fill(0,0,0);
   rect(0,windowHeight-16,windowWidth,16);
