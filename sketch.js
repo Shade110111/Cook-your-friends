@@ -329,7 +329,8 @@ function draw() {
   image(controls,0,windowHeight-16,controls.width/2,controls.height/2);
 
   //testing
-  text(player1.item,50,50);
+  text(int(player1.x),50,50);
+  text(int(player1.y),100,50);
   fill(0,0,0,0)
   //bin
   circle(absolute_to_local_x(405),absolute_to_local_y(555),absolute_to_local_w(40));
@@ -343,4 +344,18 @@ function draw() {
   circle(absolute_to_local_x(315),absolute_to_local_y(610),absolute_to_local_w(40));
   //cubloafs
   circle(absolute_to_local_x(410),absolute_to_local_y(665),absolute_to_local_w(40));
+  //chopping board 1
+  circle(absolute_to_local_x(332),absolute_to_local_y(486),absolute_to_local_w(30));
+  //chopping board 2
+  circle(absolute_to_local_x(362),absolute_to_local_y(486),absolute_to_local_w(30));
+  //grinder input
+  circle(absolute_to_local_x(532),absolute_to_local_y(427),absolute_to_local_w(40));
+  //grinder output
+  circle(absolute_to_local_x(564),absolute_to_local_y(495),absolute_to_local_w(40));
+  //hob 1
+  circle(absolute_to_local_x(491),absolute_to_local_y(588),absolute_to_local_w(30));
+  //hob 2
+  circle(absolute_to_local_x(521),absolute_to_local_y(586),absolute_to_local_w(30));
+  //till
+  circle(absolute_to_local_x(667),absolute_to_local_y(552),absolute_to_local_w(40));
 }
