@@ -3,6 +3,7 @@ let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circ
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
 let corridor_width = 26
+let grinder_timer = 6 //takes 5 seconds to grind
 
 function preload(){
   level = loadImage('Level.png');
@@ -216,6 +217,7 @@ function interact(player,x,y){
     }
     else if (sqrt(sq(abs(x-(532)))+sq(abs(y-(427))))<40/2){
       //grinder input
+      grind(player.item)
       player.item = "none"
     }
     else if (sqrt(sq(abs(x-(491)))+sq(abs(y-(588))))<30/2){
@@ -234,6 +236,10 @@ function interact(player,x,y){
   print(player.item)
 }
 
+function grind(input_item){
+  grinder_timer = 0
+}
+
 function draw() {
   //reset delta values
   player1.dx = 0
@@ -244,6 +250,12 @@ function draw() {
   player2.colliding_flag = false
   player1.circle_smallest_distance = 9999
   player2.circle_smallest_distance = 9999
+
+  //incriment counters
+  if (grinder_timer <5)
+    grinder_timer += 1/60
+  //process grinder
+  if grinder
 
   //get movement inputs
   if (keyIsPressed == true){
