@@ -1,12 +1,8 @@
-let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none"}
-let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none"}
+let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0}
+let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0}
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
 let corridor_width = 26
-let frame_counter=0;
-let subframe_counter=0;
-
-
 
 function preload(){
   level = loadImage('Level.png');
@@ -22,6 +18,7 @@ function preload(){
   player2_front = [loadImage('sugarpop_player/f1.png'),loadImage('sugarpop_player/f2.png'),loadImage('sugarpop_player/f3.png'),loadImage('sugarpop_player/f4.png')]
   player2_left = [loadImage('sugarpop_player/l1.png'),loadImage('sugarpop_player/l2.png'),loadImage('sugarpop_player/l3.png'),loadImage('sugarpop_player/l4.png')]
   player2_right = [loadImage('sugarpop_player/r1.png'),loadImage('sugarpop_player/r2.png'),loadImage('sugarpop_player/r3.png'),loadImage('sugarpop_player/r4.png')]
+  print("loaded images")
 }
 
 function setup() {
@@ -137,16 +134,16 @@ function render_player(x,y,w,player){
 
     //render player1
     if (player1.sprite == "front") {
-      image(player1_front[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+      image(player1_front[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player1.sprite == "back") {
-      image(player1_back[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+      image(player1_back[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player1.sprite == "right") {
-      image(player1_right[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+      image(player1_right[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player1.sprite == "left") {
-      image(player1_left[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+      image(player1_left[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
   }
   if (player == player2){
@@ -166,16 +163,16 @@ function render_player(x,y,w,player){
 
     //render player2
     if (player2.sprite == "front") {
-      image(player2_front[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+      image(player2_front[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player2.sprite == "back") {
-      image(player2_back[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+      image(player2_back[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player2.sprite == "right") {
-      image(player2_right[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+      image(player2_right[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player2.sprite == "left") {
-      image(player2_left[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+      image(player2_left[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
   }
 }
@@ -391,11 +388,11 @@ function draw() {
   if (player1.y < player2.y){
     //circle(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
     render_player(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15),player1);
-    circle(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15));
+    //circle(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15));
     render_player(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15),player2);
   }
   else{
-    circle(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15));
+    //circle(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15));
     render_player(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15),player2);
     //circle(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
     render_player(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15),player1);
@@ -406,8 +403,8 @@ function draw() {
 
   //render controls
   fill(0,0,0);
-  rect(0,windowHeight-16,windowWidth,16);
-  image(controls,0,windowHeight-16,controls.width/2,controls.height/2);
+  rect(0,windowHeight-32,windowWidth,32);
+  image(controls,0,windowHeight-32,controls.width,controls.height);
 
   //visualise interact zones for testing
   fill(0,0,0,0)
