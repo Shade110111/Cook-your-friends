@@ -143,10 +143,61 @@ function render_player1(x,y,w){
   }
 }
 
-function pickup(player,x,y){
-sqrt(sq(abs(player1.x-(x1+x2*i)))+sq(abs(player1.y-(y1+y2*i))))
-//add item to inventory
-//remove item from level
+function interact(player,x,y){
+  //check trying to drop or pick up?
+  if (player.item == "none"){
+    //pickup checks
+    if (sqrt(sq(abs(x-(442)))+sq(abs(y-(634))))<40/2){
+      player.item = "nibbleaf"
+    }
+    else if (sqrt(sq(abs(x-(376)))+sq(abs(y-(590))))<30/2){
+      player.item = "sugarpop"
+    }
+    else if (sqrt(sq(abs(x-(348)))+sq(abs(y-(600))))<30/2){
+      player.item = "toastie"
+    }
+    else if (sqrt(sq(abs(x-(315)))+sq(abs(y-(610))))<40/2){
+      player.item = "wailotte"
+    }
+    else if (sqrt(sq(abs(x-(410)))+sq(abs(y-(665))))<40/2){
+      player.item = "cubloaf"
+    }
+    else if (sqrt(sq(abs(x-(564)))+sq(abs(y-(495))))<40/2){
+      player.item = "input_grinder_output_here"
+    }
+  }
+  else{
+    //drop checks
+    if (sqrt(sq(abs(x-(405)))+sq(abs(y-(555))))<40/2){
+      //bin
+      player.item = "none"
+    }
+    else if (sqrt(sq(abs(x-(332)))+sq(abs(y-(486))))<30/2){
+      //chopping board 1
+      player.item = "input_chopping_output_here"
+    }
+    else if (sqrt(sq(abs(x-(362)))+sq(abs(y-(486))))<30/2){
+      //chopping board 2
+      player.item = "input_chopping_output_here"
+    }
+    else if (sqrt(sq(abs(x-(532)))+sq(abs(y-(427))))<40/2){
+      //grinder input
+      player.item = "none"
+    }
+    else if (sqrt(sq(abs(x-(491)))+sq(abs(y-(588))))<30/2){
+      //hob 1
+      player.item = "input_hob_output_here"
+    }
+    else if (sqrt(sq(abs(x-(521)))+sq(abs(y-(586))))<30/2){
+      //hob 2
+      player.item = "input_hob_output_here"
+    }
+    else if (sqrt(sq(abs(x-(491)))+sq(abs(y-(588))))<40/2){
+      //till
+      player.item = "none"
+    }
+  }
+  print(player.item)
 }
 
 function draw() {
@@ -166,14 +217,11 @@ function draw() {
     if (keyIsDown(68)) {player1.dx += move_speed}; //68 is keycode for d
     if (keyIsDown(87)) {player1.dy -= move_speed}; //87 is keycode for w
     if (keyIsDown(83)) {player1.dy += move_speed}; //83 is keycode for s
-    if (keyIsDown(67)) {pickup(1)}; //67 is keycode for c
-    if (keyIsDown(88)) {drop(1)}; //88 is keycode for x
+
     if (keyIsDown(LEFT_ARROW)) {player2.dx -= move_speed};
     if (keyIsDown(RIGHT_ARROW)) {player2.dx += move_speed};
     if (keyIsDown(UP_ARROW)) {player2.dy -= move_speed};
     if (keyIsDown(DOWN_ARROW)) {player2.dy += move_speed};
-    if (keyIsDown(191)) {pickup(2)}; //191 is keycode for /
-    if (keyIsDown(190)) {drop(2)}; //190 is keycode for .
   }
 
   //normalise movement
@@ -233,10 +281,10 @@ function draw() {
   player2.x += player2.dx
   player2.y += player2.dy
 
-  //get pickup/drop inputs
+  //get interact inputs
   if (keyIsPressed == true){
-    if (keyIsDown(67)) {pickup(player1,player1.x,player1.y)}; //67 is keycode for c
-    if (keyIsDown(190)) {pickup(player2,player2.x,player2.y)}; //190 is keycode for .
+    if (keyIsDown(67)) {interact(player1,player1.x,player1.y)}; //67 is keycode for c
+    if (keyIsDown(190)) {interact(player2,player2.x,player2.y)}; //190 is keycode for .
   }
 
   //find camera zoom
@@ -301,12 +349,6 @@ function draw() {
   */
 
 
-  
-
-
-
-  
-
   //render players
   fill(255,255,255);
   if (player1.y < player2.y){
@@ -328,9 +370,7 @@ function draw() {
   rect(0,windowHeight-16,windowWidth,16);
   image(controls,0,windowHeight-16,controls.width/2,controls.height/2);
 
-  //testing
-  text(int(player1.x),50,50);
-  text(int(player1.y),100,50);
+  //visualise interact zones for testing
   fill(0,0,0,0)
   //bin
   circle(absolute_to_local_x(405),absolute_to_local_y(555),absolute_to_local_w(40));
