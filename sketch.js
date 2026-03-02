@@ -17,6 +17,11 @@ function preload(){
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
   player1_left = [loadImage('cubloaf_player/l1.png'),loadImage('cubloaf_player/l2.png'),loadImage('cubloaf_player/l3.png'),loadImage('cubloaf_player/l4.png')]
   player1_right = [loadImage('cubloaf_player/r1.png'),loadImage('cubloaf_player/r2.png'),loadImage('cubloaf_player/r3.png'),loadImage('cubloaf_player/r4.png')]
+  //player2-sugarpop
+  player2_back = [loadImage('sugarpop_player/b1.png'),loadImage('sugarpop_player/b2.png'),loadImage('sugarpop_player/b3.png'),loadImage('sugarpop_player/b4.png')]
+  player2_front = [loadImage('sugarpop_player/f1.png'),loadImage('sugarpop_player/f2.png'),loadImage('sugarpop_player/f3.png'),loadImage('sugarpop_player/f4.png')]
+  player2_left = [loadImage('sugarpop_player/l1.png'),loadImage('sugarpop_player/l2.png'),loadImage('sugarpop_player/l3.png'),loadImage('sugarpop_player/l4.png')]
+  player2_right = [loadImage('sugarpop_player/r1.png'),loadImage('sugarpop_player/r2.png'),loadImage('sugarpop_player/r3.png'),loadImage('sugarpop_player/r4.png')]
 }
 
 function setup() {
@@ -99,47 +104,79 @@ function collision(){
   }
 }
 
-function render_player1(x,y,w){
-  if (player1.dx == 0 && player1.dy == 0){
-    frame_counter = 0
-    subframe_counter = 0
+function render_player(x,y,w,player){
+  if (player.dx == 0 && player.dy == 0){
+    player.frame_counter = 0
+    player.subframe_counter = 0
   }
   else{
-    subframe_counter += 1
+    player.subframe_counter += 1
   }
-  if (subframe_counter >= 10){ //after this many frames update the animation frame
-    subframe_counter = 0
-    frame_counter += 1
+  if (player.subframe_counter >= 10){ //after this many frames update the animation frame
+    player.subframe_counter = 0
+    player.frame_counter += 1
   }
-  if (frame_counter >= 4){
-    frame_counter = 0
+  if (player.frame_counter >= 4){
+    player.frame_counter = 0
   }
-  //check direction
-  if (keyIsDown(83)){
-    player1.sprite = "front"
-  }
-  else if (keyIsDown(87)){
-    player1.sprite = "back"
-  }
-  else if (keyIsDown(68)){
-    player1.sprite = "right"
-  }
-  else if (keyIsDown(65)){
-    player1.sprite = "left"
-  }
+  
+  if (player == player1){
+    //check direction
+    if (keyIsDown(83)){
+      player1.sprite = "front"
+    }
+    else if (keyIsDown(87)){
+      player1.sprite = "back"
+    }
+    else if (keyIsDown(68)){
+      player1.sprite = "right"
+    }
+    else if (keyIsDown(65)){
+      player1.sprite = "left"
+    }
 
-  //render sprite
-  if (player1.sprite == "front") {
-  image(player1_front[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    //render player1
+    if (player1.sprite == "front") {
+      image(player1_front[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player1.sprite == "back") {
+      image(player1_back[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player1.sprite == "right") {
+      image(player1_right[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player1.sprite == "left") {
+      image(player1_left[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
   }
-  else if (player1.sprite == "back") {
-  image(player1_back[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
-  }
-  else if (player1.sprite == "right") {
-  image(player1_right[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
-  }
-  else if (player1.sprite == "left") {
-  image(player1_left[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+  if (player == player2){
+    //check direction
+    if (keyIsDown(DOWN_ARROW)){
+      player2.sprite = "front"
+    }
+    else if (keyIsDown(UP_ARROW)){
+      player2.sprite = "back"
+    }
+    else if (keyIsDown(RIGHT_ARROW)){
+      player2.sprite = "right"
+    }
+    else if (keyIsDown(LEFT_ARROW)){
+      player2.sprite = "left"
+    }
+
+    //render player2
+    if (player2.sprite == "front") {
+      image(player2_front[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player2.sprite == "back") {
+      image(player2_back[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player2.sprite == "right") {
+      image(player2_right[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player2.sprite == "left") {
+      image(player2_left[frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
   }
 }
 
@@ -353,13 +390,15 @@ function draw() {
   fill(255,255,255);
   if (player1.y < player2.y){
     //circle(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
-    render_player1(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
+    render_player(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15),player1);
     circle(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15));
+    render_player(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15),player2);
   }
   else{
     circle(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15));
+    render_player(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15),player2);
     //circle(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
-    render_player1(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
+    render_player(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15),player1);
   }
  //render level overlay
  image(level_overlay,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
