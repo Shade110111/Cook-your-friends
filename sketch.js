@@ -143,15 +143,10 @@ function render_player1(x,y,w){
   }
 }
 
-function pickup(player_number){
-//if holding something drop it
+function pickup(player,x,y){
+sqrt(sq(abs(player1.x-(x1+x2*i)))+sq(abs(player1.y-(y1+y2*i))))
 //add item to inventory
 //remove item from level
-}
-
-function drop(player_number){
-  //if near workstation use workstation and lose item
-  //if else drop item and remove from inventory
 }
 
 function draw() {
@@ -165,7 +160,7 @@ function draw() {
   player1.circle_smallest_distance = 9999
   player2.circle_smallest_distance = 9999
 
-  //get inputs
+  //get movement inputs
   if (keyIsPressed == true){
     if (keyIsDown(65)) {player1.dx -= move_speed}; //65 is keycode for a
     if (keyIsDown(68)) {player1.dx += move_speed}; //68 is keycode for d
@@ -212,6 +207,7 @@ function draw() {
   make_corridor(553,573,505,577);
   make_corridor(500,577,460,568);
   make_corridor(455,568,435,545);
+  make_corridor(435,565,422,570);
   make_corridor(433,540,433,530);
   make_corridor(437,527,448,515);
   //E section
@@ -236,6 +232,12 @@ function draw() {
   player1.y += player1.dy
   player2.x += player2.dx
   player2.y += player2.dy
+
+  //get pickup/drop inputs
+  if (keyIsPressed == true){
+    if (keyIsDown(67)) {pickup(player1,player1.x,player1.y)}; //67 is keycode for c
+    if (keyIsDown(190)) {pickup(player2,player2.x,player2.y)}; //190 is keycode for .
+  }
 
   //find camera zoom
   camera.sw = 0.8*camera.sw + (diff(player1.x,player2.x)+windowWidth/5)*0.2 //multiply is for smoothing
@@ -279,6 +281,7 @@ function draw() {
   make_corridor(553,573,505,577);
   make_corridor(500,577,460,568);
   make_corridor(455,568,435,545);
+  make_corridor(435,565,422,570);
   make_corridor(433,540,433,530);
   make_corridor(437,527,448,515);
   //E section
@@ -325,4 +328,19 @@ function draw() {
   rect(0,windowHeight-16,windowWidth,16);
   image(controls,0,windowHeight-16,controls.width/2,controls.height/2);
 
+  //testing
+  text(player1.item,50,50);
+  fill(0,0,0,0)
+  //bin
+  circle(absolute_to_local_x(405),absolute_to_local_y(555),absolute_to_local_w(40));
+  //nibbleaf
+  circle(absolute_to_local_x(442),absolute_to_local_y(634),absolute_to_local_w(40));
+  //sugarpop
+  circle(absolute_to_local_x(376),absolute_to_local_y(590),absolute_to_local_w(30));
+  //toastie
+  circle(absolute_to_local_x(348),absolute_to_local_y(600),absolute_to_local_w(30));
+  //wailottes
+  circle(absolute_to_local_x(315),absolute_to_local_y(610),absolute_to_local_w(40));
+  //cubloafs
+  circle(absolute_to_local_x(410),absolute_to_local_y(665),absolute_to_local_w(40));
 }
