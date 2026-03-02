@@ -4,6 +4,7 @@ let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte
 let move_speed = 1.4 //move speed is absolute units
 let corridor_width = 26
 let grinder_timer = 6 //takes 5 seconds to grind
+let grinder_item = "none"
 
 function preload(){
   level = loadImage('Level.png');
@@ -238,6 +239,7 @@ function interact(player,x,y){
 
 function grind(input_item){
   grinder_timer = 0
+  grinder_item = input_item
 }
 
 function draw() {
@@ -252,10 +254,17 @@ function draw() {
   player2.circle_smallest_distance = 9999
 
   //incriment counters
-  if (grinder_timer <5)
+  if (grinder_timer <5){
     grinder_timer += 1/60
+  }
   //process grinder
-  if grinder
+  if (grinder_timer==5){
+    grinder_timer = 6
+    //note: need to visually show grinder as done
+    grinder_item = "ground "+grinder_item
+    //note: add flag to signify item can be collected
+
+  }
 
   //get movement inputs
   if (keyIsPressed == true){
