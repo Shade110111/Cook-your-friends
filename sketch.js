@@ -1,10 +1,11 @@
-let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0}
-let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0}
+let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0,freeze: false}
+let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0, freeze: false}
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
 let corridor_width = 26
 let grinder = {timer:0,item:"none",state:"ready"}//state can be ready, processing or done
-let board1_state = {timer:0,item:"none",state:"ready"}//state can be ready, processing or done
+let board1 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
+let board2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
 
@@ -218,15 +219,26 @@ function interact(player,x,y){
       if (board1.state == "ready") {
         for (let i = 0; i < grind_or_choppable_list.length; i += 1){ //only allows inputs on this list
           if (player.item == grind_or_choppable_list[i]){
-            grind(player.item)
+            board1.player = player
+            dice(player.item,board1)
             player.item = "none"
+            player.freeze = true
           }
         }
       }
     }
     else if (sqrt(sq(abs(x-(362)))+sq(abs(y-(486))))<30/2){
       //chopping board 2
-      player.item = "input_chopping_output_here"
+      if (board2.state == "ready") {
+        for (let i = 0; i < grind_or_choppable_list.length; i += 1){ //only allows inputs on this list
+          if (player.item == grind_or_choppable_list[i]){
+            board2.player = player
+            dice(player.item,board2)
+            player.item = "none"
+            player.freeze = true
+          }
+        }
+      }
     }
     else if (sqrt(sq(abs(x-(532)))+sq(abs(y-(427))))<40/2){
       //grinder input
@@ -260,6 +272,12 @@ function grind(input_item){
   grinder.state = "processing"
 }
 
+function dice(input_item,board){
+  board.timer = 0
+  board.item = input_item
+  board.state = "processing"
+}
+
 function draw() {
   //reset delta values
   player1.dx = 0
@@ -275,24 +293,43 @@ function draw() {
   if (grinder.state == "processing"){
     grinder.timer += 1
   }
-  //detect grinder done
-  if (grinder.timer==5*60 && grinder.state == "processing"){
+  if (board1.state == "processing"){
+    board1.timer += 1
+  }
+  if (board2.state == "processing"){
+    board2.timer += 1
+  }
+  //detect finished processes
+  if (grinder.timer>=5*60 && grinder.state == "processing"){
     grinder.state = "done"
     //note: need to visually show grinder as done --------------to do
     grinder.item = "ground_"+grinder.item
   }
+  if (board1.timer>=3*60 && board1.state == "processing"){
+    board1.state = "done"
+    board1.player.item = "diced_"+board1.item
+    board1.player.freeze = false
+  }
+  if (board2.timer>=3*60 && board2.state == "processing"){
+    board2.state = "done"
+    board2.player.item = "diced_"+board2.item
+    board2.player.freeze = false
+  }
 
   //get movement inputs
   if (keyIsPressed == true){
-    if (keyIsDown(65)) {player1.dx -= move_speed}; //65 is keycode for a
-    if (keyIsDown(68)) {player1.dx += move_speed}; //68 is keycode for d
-    if (keyIsDown(87)) {player1.dy -= move_speed}; //87 is keycode for w
-    if (keyIsDown(83)) {player1.dy += move_speed}; //83 is keycode for s
-
-    if (keyIsDown(LEFT_ARROW)) {player2.dx -= move_speed};
-    if (keyIsDown(RIGHT_ARROW)) {player2.dx += move_speed};
-    if (keyIsDown(UP_ARROW)) {player2.dy -= move_speed};
-    if (keyIsDown(DOWN_ARROW)) {player2.dy += move_speed};
+    if (player1.freeze == false){
+      if (keyIsDown(65)) {player1.dx -= move_speed}; //65 is keycode for a
+      if (keyIsDown(68)) {player1.dx += move_speed}; //68 is keycode for d
+      if (keyIsDown(87)) {player1.dy -= move_speed}; //87 is keycode for w
+      if (keyIsDown(83)) {player1.dy += move_speed}; //83 is keycode for s
+    }
+    if (player2.freeze == false){
+      if (keyIsDown(LEFT_ARROW)) {player2.dx -= move_speed};
+      if (keyIsDown(RIGHT_ARROW)) {player2.dx += move_speed};
+      if (keyIsDown(UP_ARROW)) {player2.dy -= move_speed};
+      if (keyIsDown(DOWN_ARROW)) {player2.dy += move_speed};
+    }
   }
 
   //normalise movement
