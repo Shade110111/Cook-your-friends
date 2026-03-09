@@ -3,8 +3,10 @@ let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circ
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
 let corridor_width = 26
-let grinder_timer = 6 //takes 5 seconds to grind
-let grinder_item = "none"
+let grinder = {timer:0,item:"none",state:"ready"}//state can be ready, processing or done
+let board1_state = {timer:0,item:"none",state:"ready"}//state can be ready, processing or done
+let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
+let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
 
 function preload(){
   level = loadImage('Level.png');
@@ -199,7 +201,10 @@ function interact(player,x,y){
       player.item = "cubloaf"
     }
     else if (sqrt(sq(abs(x-(564)))+sq(abs(y-(495))))<40/2){
-      player.item = "input_grinder_output_here"
+      if (grinder.state == "done"){
+      player.item = grinder.item
+      grinder.state = "ready"
+      }
     }
   }
   else{
@@ -210,7 +215,14 @@ function interact(player,x,y){
     }
     else if (sqrt(sq(abs(x-(332)))+sq(abs(y-(486))))<30/2){
       //chopping board 1
-      player.item = "input_chopping_output_here"
+      if (board1.state == "ready") {
+        for (let i = 0; i < grind_or_choppable_list.length; i += 1){ //only allows inputs on this list
+          if (player.item == grind_or_choppable_list[i]){
+            grind(player.item)
+            player.item = "none"
+          }
+        }
+      }
     }
     else if (sqrt(sq(abs(x-(362)))+sq(abs(y-(486))))<30/2){
       //chopping board 2
@@ -218,8 +230,14 @@ function interact(player,x,y){
     }
     else if (sqrt(sq(abs(x-(532)))+sq(abs(y-(427))))<40/2){
       //grinder input
-      grind(player.item)
-      player.item = "none"
+      if (grinder.state == "ready") {
+        for (let i = 0; i < grind_or_choppable_list.length; i += 1){ //only allows inputs on this list
+          if (player.item == grind_or_choppable_list[i]){
+            grind(player.item)
+            player.item = "none"
+          }
+        }
+      }
     }
     else if (sqrt(sq(abs(x-(491)))+sq(abs(y-(588))))<30/2){
       //hob 1
@@ -234,12 +252,12 @@ function interact(player,x,y){
       player.item = "none"
     }
   }
-  print(player.item)
 }
 
 function grind(input_item){
-  grinder_timer = 0
-  grinder_item = input_item
+  grinder.timer = 0
+  grinder.item = input_item
+  grinder.state = "processing"
 }
 
 function draw() {
@@ -254,16 +272,14 @@ function draw() {
   player2.circle_smallest_distance = 9999
 
   //incriment counters
-  if (grinder_timer <5){
-    grinder_timer += 1/60
+  if (grinder.state == "processing"){
+    grinder.timer += 1
   }
-  //process grinder
-  if (grinder_timer==5){
-    grinder_timer = 6
-    //note: need to visually show grinder as done
-    grinder_item = "ground "+grinder_item
-    //note: add flag to signify item can be collected
-
+  //detect grinder done
+  if (grinder.timer==5*60 && grinder.state == "processing"){
+    grinder.state = "done"
+    //note: need to visually show grinder as done --------------to do
+    grinder.item = "ground_"+grinder.item
   }
 
   //get movement inputs
@@ -455,4 +471,8 @@ function draw() {
   circle(absolute_to_local_x(521),absolute_to_local_y(586),absolute_to_local_w(30));
   //till
   circle(absolute_to_local_x(667),absolute_to_local_y(552),absolute_to_local_w(40));
+  //tracking
+  fill(0)
+  text(player1.item,20,20);
+  text(player2.item,20,40);
 }
