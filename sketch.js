@@ -14,7 +14,9 @@ let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","groun
 function preload(){
   level = loadImage('Level.png');
   level_overlay = loadImage('Level_overlay.png');
+  level_grinder_done = loadImage('Level_grinder_done.png');
   controls = loadImage('controls.png');
+  bubble = loadImage('bubble.png');
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
@@ -25,7 +27,6 @@ function preload(){
   player2_front = [loadImage('sugarpop_player/f1.png'),loadImage('sugarpop_player/f2.png'),loadImage('sugarpop_player/f3.png'),loadImage('sugarpop_player/f4.png')]
   player2_left = [loadImage('sugarpop_player/l1.png'),loadImage('sugarpop_player/l2.png'),loadImage('sugarpop_player/l3.png'),loadImage('sugarpop_player/l4.png')]
   player2_right = [loadImage('sugarpop_player/r1.png'),loadImage('sugarpop_player/r2.png'),loadImage('sugarpop_player/r3.png'),loadImage('sugarpop_player/r4.png')]
-  print("loaded images")
 }
 
 function setup() {
@@ -152,6 +153,7 @@ function render_player(x,y,w,player){
     else if (player1.sprite == "left") {
       image(player1_left[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
+    //render bubble
   }
   if (player == player2){
     //check direction
@@ -181,6 +183,8 @@ function render_player(x,y,w,player){
     else if (player2.sprite == "left") {
       image(player2_left[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
+
+    //render bubble
   }
 }
 
@@ -458,6 +462,11 @@ function draw() {
   background(240,204,133);
   image(level,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
 
+  //render grinder done
+  if (grinder.state == "done"){
+    image(level_grinder_done,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
+  }
+
   //visualise collision shapes, comment this out later as it is just for testing
   fill(240,240,255);
   /*
@@ -514,15 +523,15 @@ function draw() {
     //circle(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15));
     render_player(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15),player1);
   }
- //render level overlay
- image(level_overlay,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
-
+  //render level overlay
+  image(level_overlay,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
 
   //render controls
   fill(0,0,0);
   rect(0,windowHeight-32,windowWidth,32);
   image(controls,0,windowHeight-32,controls.width,controls.height);
 
+  /*
   //visualise interact zones for testing
   fill(0,0,0,0)
   //bin
@@ -551,6 +560,7 @@ function draw() {
   circle(absolute_to_local_x(521),absolute_to_local_y(586),absolute_to_local_w(30));
   //till
   circle(absolute_to_local_x(667),absolute_to_local_y(552),absolute_to_local_w(40));
+  */
   //tracking
   fill(0)
   text(player1.item,20,20);
