@@ -6,6 +6,8 @@ let corridor_width = 26
 let grinder = {timer:0,item:"none",state:"ready"}//state can be ready, processing or done
 let board1 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
 let board2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
+let stove1 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
+let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
 
@@ -252,12 +254,30 @@ function interact(player,x,y){
       }
     }
     else if (sqrt(sq(abs(x-(491)))+sq(abs(y-(588))))<30/2){
-      //hob 1
-      player.item = "input_hob_output_here"
+      //stove1
+      if (stove1.state == "ready") {
+        for (let i = 0; i < cookable_list.length; i += 1){ //only allows inputs on this list
+          if (player.item == cookable_list[i]){
+            stove1.player = player
+            cook(player.item,stove1)
+            player.item = "none"
+            player.freeze = true
+          }
+        }
+      }
     }
     else if (sqrt(sq(abs(x-(521)))+sq(abs(y-(586))))<30/2){
-      //hob 2
-      player.item = "input_hob_output_here"
+      //stove2
+      if (stove2.state == "ready") {
+        for (let i = 0; i < cookable_list.length; i += 1){ //only allows inputs on this list
+          if (player.item == cookable_list[i]){
+            stove2.player = player
+            cook(player.item,stove2)
+            player.item = "none"
+            player.freeze = true
+          }
+        }
+      }
     }
     else if (sqrt(sq(abs(x-(491)))+sq(abs(y-(588))))<40/2){
       //till
@@ -276,6 +296,12 @@ function dice(input_item,board){
   board.timer = 0
   board.item = input_item
   board.state = "processing"
+}
+
+function cook(input_item,stove){
+  stove.timer = 0
+  stove.item = input_item
+  stove.state = "processing"
 }
 
 function draw() {
@@ -299,6 +325,12 @@ function draw() {
   if (board2.state == "processing"){
     board2.timer += 1
   }
+  if (stove1.state == "processing"){
+    stove1.timer += 1
+  }
+  if (stove2.state == "processing"){
+    stove2.timer += 1
+  }
   //detect finished processes
   if (grinder.timer>=5*60 && grinder.state == "processing"){
     grinder.state = "done"
@@ -315,6 +347,17 @@ function draw() {
     board2.player.item = "diced_"+board2.item
     board2.player.freeze = false
   }
+  if (stove1.timer>=4*60 && stove1.state == "processing"){
+    stove1.state = "done"
+    stove1.player.item = "cooked_"+stove1.item
+    stove1.player.freeze = false
+  }
+  if (stove2.timer>=4*60 && stove2.state == "processing"){
+    stove2.state = "done"
+    stove2.player.item = "cooked_"+stove2.item
+    stove2.player.freeze = false
+  }
+
 
   //get movement inputs
   if (keyIsPressed == true){
