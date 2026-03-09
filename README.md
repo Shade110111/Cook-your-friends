@@ -14,3 +14,5 @@ shade notes: morgan did the creatures and player, mikayla did half the map and s
 shade note: not only is the game a metaphor for gaining power by taking advantage of defensless masses to appeal to the powerful few but also a commentry on eating intelegent beings and reminding us that we are animals, the game is not designed to be grusome just as the food industry isn't, however we hope the public display of cannibalism may change peoples minds about the food they eat and the mindsets of powerful people that take advantage of them, they know exactly what they are doing.
 
 shade note: https://www.toptal.com/developers/keycode is dope
+
+shade note: fixed a bug where stoves and chopping boards could only be used once becuase their state was set to done and not ready upon completion.

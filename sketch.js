@@ -5,9 +5,9 @@ let move_speed = 1.4 //move speed is absolute units
 let corridor_width = 26
 let grinder = {timer:0,item:"none",state:"ready"}//state can be ready, processing or done
 let board1 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
-let board2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
-let stove1 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
-let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready, processing or done
+let board2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready or processing
+let stove1 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready or processing
+let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready or processing
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
 
@@ -338,22 +338,22 @@ function draw() {
     grinder.item = "ground_"+grinder.item
   }
   if (board1.timer>=3*60 && board1.state == "processing"){
-    board1.state = "done"
+    board1.state = "ready"
     board1.player.item = "diced_"+board1.item
     board1.player.freeze = false
   }
   if (board2.timer>=3*60 && board2.state == "processing"){
-    board2.state = "done"
+    board2.state = "ready"
     board2.player.item = "diced_"+board2.item
     board2.player.freeze = false
   }
   if (stove1.timer>=4*60 && stove1.state == "processing"){
-    stove1.state = "done"
+    stove1.state = "ready"
     stove1.player.item = "cooked_"+stove1.item
     stove1.player.freeze = false
   }
   if (stove2.timer>=4*60 && stove2.state == "processing"){
-    stove2.state = "done"
+    stove2.state = "ready"
     stove2.player.item = "cooked_"+stove2.item
     stove2.player.freeze = false
   }
