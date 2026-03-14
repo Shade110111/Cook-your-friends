@@ -216,7 +216,7 @@ function render_item(x,y,w,player){
     image(sugarpop,x-w*0.9,y-w*4.6,w*1.8,w*1.8);
   }
   else if (player.item == "diced_wailotte"){
-    image(diced_wailotte,x-w*0.9,y-w*4.6,w*1.8,w*1.8);
+    image(diced_wailotte,x-w*0.9,y-w*4.4,w*1.8,w*1.8);
   }
 }
 
