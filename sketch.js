@@ -11,12 +11,19 @@ let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be re
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
 
+
 function preload(){
   level = loadImage('Level.png');
   level_overlay = loadImage('Level_overlay.png');
   level_grinder_done = loadImage('Level_grinder_done.png');
   controls = loadImage('controls.png');
+  //items
   bubble = loadImage('bubble.png');
+  cubloaf = loadImage('base_ingredients/cubloaf.png');
+  nibbleaf = loadImage('base_ingredients/nibbleaf.png');
+  sugarpop = loadImage('base_ingredients/sugarpop.png');
+  toastie = loadImage('base_ingredients/toastie.png');
+  wailotte = loadImage('base_ingredients/wailotte.png');
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
@@ -153,7 +160,7 @@ function render_player(x,y,w,player){
     else if (player1.sprite == "left") {
       image(player1_left[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
-    //render bubble
+  
   }
   if (player == player2){
     //check direction
@@ -183,8 +190,17 @@ function render_player(x,y,w,player){
     else if (player2.sprite == "left") {
       image(player2_left[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
+  }
+}
 
-    //render bubble
+function render_item(x,y,w,player){
+  //render bubble
+  if (player.item != "none"){
+    image(bubble,x-w*1.5,y-w*5,w*3,w*3);
+  }
+  //render item
+  if (player.item == "wailotte"){
+    image(wailotte,x-w*0.85,y-w*4.7,w*2,w*2);
   }
 }
 
@@ -525,6 +541,10 @@ function draw() {
   }
   //render level overlay
   image(level_overlay,0,0,windowWidth,windowHeight,camera.x,camera.y,camera.sw,camera.sh,CONTAIN)
+
+  //render held item/bubble
+  render_item(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15),player1);
+  render_item(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15),player2);
 
   //render controls
   fill(0,0,0);
