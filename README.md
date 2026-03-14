@@ -16,3 +16,5 @@ shade note: not only is the game a metaphor for gaining power by taking advantag
 shade note: https://www.toptal.com/developers/keycode is dope
 
 shade note: fixed a bug where stoves and chopping boards could only be used once becuase their state was set to done and not ready upon completion.
+
+shade note: make the diced onions look better

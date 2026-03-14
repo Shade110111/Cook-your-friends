@@ -24,6 +24,7 @@ function preload(){
   sugarpop = loadImage('base_ingredients/sugarpop.png');
   toastie = loadImage('base_ingredients/toastie.png');
   wailotte = loadImage('base_ingredients/wailotte.png');
+  diced_wailotte = loadImage('chopped_ingredients/wailotte_chopped.png');
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
@@ -200,9 +201,25 @@ function render_item(x,y,w,player){
   }
   //render item
   if (player.item == "wailotte"){
-    image(wailotte,x-w*0.85,y-w*4.7,w*2,w*2);
+    image(wailotte,x-w*0.95,y-w*4.95,w*2.3,w*2.3);
+  }
+  else if (player.item == "cubloaf"){
+    image(cubloaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+  }
+  else if (player.item == "toastie"){
+    image(toastie,x-w*0.77,y-w*4.3,w*1.6,w*1.6);
+  }
+  else if (player.item == "nibbleaf"){
+    image(nibbleaf,x-w*0.85,y-w*4.5,w*1.8,w*1.8);
+  }
+  else if (player.item == "sugarpop"){
+    image(sugarpop,x-w*0.9,y-w*4.6,w*1.8,w*1.8);
+  }
+  else if (player.item == "diced_wailotte"){
+    image(diced_wailotte,x-w*0.9,y-w*4.6,w*1.8,w*1.8);
   }
 }
+
 
 function interact(player,x,y){
   //check trying to drop or pick up?
