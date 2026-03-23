@@ -20,6 +20,8 @@ function preload(){
   level_overlay = loadImage('Level_overlay.png');
   level_grinder_done = loadImage('Level_grinder_done.png');
   controls = loadImage('controls.png');
+  dialogue = loadImage('dialogue.png');
+  UI = loadImage('UI background.png');
   //items
   bubble = loadImage('bubble.png');
   cubloaf = loadImage('base_ingredients/cubloaf.png');
@@ -596,6 +598,17 @@ function draw() {
   fill(0,0,0);
   rect(0,windowHeight-32,windowWidth,32);
   image(controls,0,windowHeight-32,controls.width,controls.height);
+
+  //render dialogue
+  if (windowWidth<windowHeight){ //width is smaller
+    image(dialogue,0,(windowHeight-windowWidth)-30,windowWidth,windowWidth);
+  }
+  else{ //height is smaller
+    image(dialogue,(windowWidth-windowHeight)/2,-30,windowHeight,windowHeight);
+  }
+
+  //render recepie
+  image(UI,windowWidth-100,0, 100,100);
 
   /*
   //visualise interact zones for testing
