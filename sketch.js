@@ -351,6 +351,14 @@ function add_to_till(input_item){
   }
   for (let i = 0; i < current_recepie.length;i+=1){
     print(current_recepie[i]);
+    if (input_item == current_recepie[i]){
+      current_recepie.splice(i,1)//startedit, delete count, item to replace
+    }
+  }
+  //check if order is done
+  if (current_recepie.length <= 1){
+    //note: need to give money and points
+    setup_new_recepie()
   }
 }
 
