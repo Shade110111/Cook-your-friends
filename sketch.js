@@ -10,8 +10,9 @@ let stove1 = {timer:0,item:"none",state:"ready",player:player2}//state can be re
 let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready or processing
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
-let recepie = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"]]
-let current_recepie = random(0,4) //first number inclusive, 2nd exclusive
+let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"]]
+let current_recepie_index = -1
+let current_recepie = []
 
 
 function preload(){
@@ -318,18 +319,18 @@ function interact(player,x,y){
         }
       }
     }
-    else if (sqrt(sq(abs(x-(667)))+sq(abs(y-(552))))<40/2){
-      //till
-      add_to_till(player.item)
-      player.item = "none"
-    }
+  }
+  if (sqrt(sq(abs(x-(667)))+sq(abs(y-(552))))<40/2){
+    //till
+    add_to_till(player.item)
+    player.item = "none"
   }
 }
 
 function grind(input_item){
   grinder.timer = 0
   grinder.item = input_item
-  grinder.state = "processing"
+  grinder.state = "processing" //while processing a counter ticks and completed action is checked
 }
 
 function dice(input_item,board){
@@ -345,7 +346,20 @@ function cook(input_item,stove){
 }
 
 function add_to_till(input_item){
+  if (current_recepie_index == -1){
+    setup_new_recepie() //start game
+  }
+  for (let i = 0; i < current_recepie.length;i+=1){
+    print(current_recepie[i]);
+  }
+}
 
+function setup_new_recepie(){
+  old_current_recepie_index = current_recepie_index
+  while (current_recepie_index == old_current_recepie_index){
+    current_recepie_index = Math.floor(random(4)) //from 0 up to specified number but never specified number
+  }
+  current_recepie = recepies[current_recepie_index] //current_recepie is the finished product followed by its ingredients
 }
 
 function draw() {
@@ -609,4 +623,5 @@ function draw() {
   fill(0)
   text(player1.item,20,20);
   text(player2.item,20,40);
+  text(current_recepie_index,20,60);
 }
