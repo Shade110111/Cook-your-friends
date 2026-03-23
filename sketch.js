@@ -13,6 +13,8 @@ let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","groun
 let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"]]
 let current_recepie_index = -1
 let current_recepie = []
+let dialogue = {bool:true,counter:0}
+
 
 
 function preload(){
@@ -20,7 +22,7 @@ function preload(){
   level_overlay = loadImage('Level_overlay.png');
   level_grinder_done = loadImage('Level_grinder_done.png');
   controls = loadImage('controls.png');
-  dialogue = loadImage('dialogue.png');
+  dialogue_UI = loadImage('dialogue.png');
   UI = loadImage('UI background.png');
   //items
   bubble = loadImage('bubble.png');
@@ -384,6 +386,9 @@ function draw() {
   player2.circle_smallest_distance = 9999
 
   //incriment counters
+  if (dialogue.bool){
+    dialogue.counter +=1
+  }
   if (grinder.state == "processing"){
     grinder.timer += 1
   }
@@ -400,6 +405,10 @@ function draw() {
     stove2.timer += 1
   }
   //detect finished processes
+  if (dialogue.counter > 60*3 && keyIsDown(67) && keyIsDown(190)){
+    dialogue.bool = false
+    dialogue.counter = 0
+  }
   if (grinder.timer>=5*60 && grinder.state == "processing"){
     grinder.state = "done"
     //note: need to visually show grinder as done --------------to do
@@ -600,11 +609,13 @@ function draw() {
   image(controls,0,windowHeight-32,controls.width,controls.height);
 
   //render dialogue
-  if (windowWidth<windowHeight){ //width is smaller
-    image(dialogue,0,(windowHeight-windowWidth)-30,windowWidth,windowWidth);
-  }
-  else{ //height is smaller
-    image(dialogue,(windowWidth-windowHeight)/2,-30,windowHeight,windowHeight);
+  if (dialogue.bool){
+    if (windowWidth<windowHeight){ //width is smaller
+      image(dialogue_UI,0,(windowHeight-windowWidth)-30,windowWidth,windowWidth);
+    }
+    else{ //height is smaller
+      image(dialogue_UI,(windowWidth-windowHeight)/2,-30,windowHeight,windowHeight);
+    }
   }
 
   //render recepie
