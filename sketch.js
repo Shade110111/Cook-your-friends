@@ -13,7 +13,7 @@ let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","groun
 let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"]]
 let current_recepie_index = -1
 let current_recepie = []
-let dialogue = {bool:true,counter:0}
+let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
 
 
 
@@ -22,7 +22,6 @@ function preload(){
   level_overlay = loadImage('Level_overlay.png');
   level_grinder_done = loadImage('Level_grinder_done.png');
   controls = loadImage('controls.png');
-  dialogue_UI = loadImage('dialogue.png');
   UI = loadImage('UI background.png');
   //items
   bubble = loadImage('bubble.png');
@@ -32,6 +31,12 @@ function preload(){
   toastie = loadImage('base_ingredients/toastie.png');
   wailotte = loadImage('base_ingredients/wailotte.png');
   diced_wailotte = loadImage('chopped_ingredients/wailotte_chopped.png');
+  diced_cubloaf = loadImage('chopped_ingredients/cubloaf_chopped.png');
+  diced_nibbleaf = loadImage('chopped_ingredients/nibbleaf_chopped.png');
+  ground_cubloaf = loadImage('ground_ingredients/cubloaf_ground.png');
+  ground_nibbleaf = loadImage('ground_ingredients/nibbleaf_ground.png');
+  ground_toastie = loadImage('ground_ingredients/toastie_ground.png');
+  ground_wailotte = loadImage('ground_ingredients/wailotte_ground.png');
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
@@ -42,6 +47,8 @@ function preload(){
   player2_front = [loadImage('sugarpop_player/f1.png'),loadImage('sugarpop_player/f2.png'),loadImage('sugarpop_player/f3.png'),loadImage('sugarpop_player/f4.png')]
   player2_left = [loadImage('sugarpop_player/l1.png'),loadImage('sugarpop_player/l2.png'),loadImage('sugarpop_player/l3.png'),loadImage('sugarpop_player/l4.png')]
   player2_right = [loadImage('sugarpop_player/r1.png'),loadImage('sugarpop_player/r2.png'),loadImage('sugarpop_player/r3.png'),loadImage('sugarpop_player/r4.png')]
+  //dialogue
+  dialogue_intro = loadImage('dialogue/dialogue_intro.png');
 }
 
 function setup() {
@@ -204,26 +211,51 @@ function render_player(x,y,w,player){
 function render_item(x,y,w,player){
   //render bubble
   if (player.item != "none"){
+    //render bubble
     image(bubble,x-w*1.5,y-w*5,w*3,w*3);
+    //render item
+    if (player.item == "wailotte"){
+      image(wailotte,x-w*0.95,y-w*4.95,w*2.3,w*2.3);
+    }
+    else if (player.item == "cubloaf"){
+      image(cubloaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+    }
+    else if (player.item == "toastie"){
+      image(toastie,x-w*0.77,y-w*4.3,w*1.6,w*1.6);
+    }
+    else if (player.item == "nibbleaf"){
+      image(nibbleaf,x-w*0.85,y-w*4.5,w*1.8,w*1.8);
+    }
+    else if (player.item == "sugarpop"){
+      image(sugarpop,x-w*0.9,y-w*4.6,w*1.8,w*1.8);
+    }
+    else if (player.item == "diced_wailotte"){
+      image(diced_wailotte,x-w*0.9,y-w*4.4,w*1.8,w*1.8);
+    }
+    else if (player.item == "diced_cubloaf"){
+      image(diced_cubloaf,x-w*0.8,y-w*4.3,w*1.6,w*1.6);
+    }
+    else if (player.item == "diced_nibbleaf"){
+      image(diced_nibbleaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+    }
+    else if (player.item == "ground_cubloaf"){
+      image(ground_cubloaf,x-w*0.8,y-w*4.4,w*1.6,w*1.6);
+    }
   }
-  //render item
-  if (player.item == "wailotte"){
-    image(wailotte,x-w*0.95,y-w*4.95,w*2.3,w*2.3);
-  }
-  else if (player.item == "cubloaf"){
-    image(cubloaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
-  }
-  else if (player.item == "toastie"){
-    image(toastie,x-w*0.77,y-w*4.3,w*1.6,w*1.6);
-  }
-  else if (player.item == "nibbleaf"){
-    image(nibbleaf,x-w*0.85,y-w*4.5,w*1.8,w*1.8);
-  }
-  else if (player.item == "sugarpop"){
-    image(sugarpop,x-w*0.9,y-w*4.6,w*1.8,w*1.8);
-  }
-  else if (player.item == "diced_wailotte"){
-    image(diced_wailotte,x-w*0.9,y-w*4.4,w*1.8,w*1.8);
+}
+
+function render_dialogue(){
+  //establish which dialogue to use
+  current_dialogue = dialogue_intro
+
+  //render dialogue
+  if (dialogue.bool){
+    if (windowWidth<windowHeight){ //width is smaller
+      image(current_dialogue,0,(windowHeight-windowWidth)-30,windowWidth,windowWidth);
+    }
+    else{ //height is smaller
+      image(current_dialogue,(windowWidth-windowHeight)/2,-30,windowHeight,windowHeight);
+    }
   }
 }
 
@@ -603,23 +635,16 @@ function draw() {
   render_item(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15),player1);
   render_item(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15),player2);
 
+  //render dialogue
+  render_dialogue();
+
+  //render recepie
+  image(UI,windowWidth-100,0, 100,100);
+
   //render controls
   fill(0,0,0);
   rect(0,windowHeight-32,windowWidth,32);
   image(controls,0,windowHeight-32,controls.width,controls.height);
-
-  //render dialogue
-  if (dialogue.bool){
-    if (windowWidth<windowHeight){ //width is smaller
-      image(dialogue_UI,0,(windowHeight-windowWidth)-30,windowWidth,windowWidth);
-    }
-    else{ //height is smaller
-      image(dialogue_UI,(windowWidth-windowHeight)/2,-30,windowHeight,windowHeight);
-    }
-  }
-
-  //render recepie
-  image(UI,windowWidth-100,0, 100,100);
 
   /*
   //visualise interact zones for testing
