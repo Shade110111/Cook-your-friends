@@ -25,18 +25,18 @@ function preload(){
   UI = loadImage('UI background.png');
   //items
   bubble = loadImage('bubble.png');
-  cubloaf = loadImage('base_ingredients/cubloaf.png');
-  nibbleaf = loadImage('base_ingredients/nibbleaf.png');
-  sugarpop = loadImage('base_ingredients/sugarpop.png');
-  toastie = loadImage('base_ingredients/toastie.png');
-  wailotte = loadImage('base_ingredients/wailotte.png');
-  diced_wailotte = loadImage('chopped_ingredients/wailotte_chopped.png');
-  diced_cubloaf = loadImage('chopped_ingredients/cubloaf_chopped.png');
-  diced_nibbleaf = loadImage('chopped_ingredients/nibbleaf_chopped.png');
-  ground_cubloaf = loadImage('ground_ingredients/cubloaf_ground.png');
-  ground_nibbleaf = loadImage('ground_ingredients/nibbleaf_ground.png');
-  ground_toastie = loadImage('ground_ingredients/toastie_ground.png');
-  ground_wailotte = loadImage('ground_ingredients/wailotte_ground.png');
+  cubloaf = loadImage('ingredients/cubloaf.png');
+  nibbleaf = loadImage('ingredients/nibbleaf.png');
+  sugarpop = loadImage('ingredients/sugarpop.png');
+  toastie = loadImage('ingredients/toastie.png');
+  wailotte = loadImage('ingredients/wailotte.png');
+  diced_wailotte = loadImage('ingredients/wailotte_chopped.png');
+  diced_cubloaf = loadImage('ingredients/cubloaf_chopped.png');
+  diced_nibbleaf = loadImage('ingredients/nibbleaf_chopped.png');
+  ground_cubloaf = loadImage('ingredients/cubloaf_ground.png');
+  ground_nibbleaf = loadImage('ingredients/nibbleaf_ground.png');
+  ground_toastie = loadImage('ingredients/toastie_ground.png');
+  ground_wailotte = loadImage('ingredients/wailotte_ground.png');
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
