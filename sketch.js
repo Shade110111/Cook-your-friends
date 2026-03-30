@@ -14,7 +14,7 @@ let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_ni
 let current_recepie_index = -1
 let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
-
+//let ingredients_lookup = {}
 
 
 function preload(){
@@ -641,7 +641,8 @@ function draw() {
   //render recepie
   for(let i = 1; i < current_recepie.length; i+=1){
     image(UI,windowWidth-100*i,0, 100,100);
-    image(current_recepie[i],windowWidth-100*i,0, 100,100);
+    console.log(current_recepie[i], image(current_recepie[i]));
+    //image(current_recepie[i],windowWidth-100*i,0, 100,100);
   }
 
   //render controls
