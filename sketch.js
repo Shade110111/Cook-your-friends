@@ -14,8 +14,11 @@ let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_ni
 let current_recepie_index = -1
 let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
-//let ingredients_lookup = {}
-
+let cubloaf,nibbleaf,sugarpop,toastie,wailotte;
+let diced_cubloaf,diced_nibbleaf,diced_sugarpop,diced_toastie,diced_wailotte;
+let ground_cubloaf,ground_nibbleaf,ground_sugarpop,ground_toastie,ground_wailotte;
+let cooked_diced_cubloaf,cooked_diced_nibbleaf,cooked_diced_sugarpop,cooked_diced_toastie,cooked_diced_wailotte;
+let cooked_ground_cubloaf,cooked_ground_nibbleaf,cooked_ground_sugarpop,cooked_ground_toastie,cooked_ground_wailotte;
 
 function preload(){
   level = loadImage('Level.png');
