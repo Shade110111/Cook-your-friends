@@ -32,7 +32,7 @@ function preload(){
   diced_cubloaf = loadImage('ingredients/cubloaf_chopped.png');
   diced_nibbleaf = loadImage('ingredients/nibbleaf_chopped.png');
   diced_sugarpop = loadImage('ingredients/diced_sugarpop.png');
-  diced_toastie = loadImage('ingredients/test_image.png');
+  diced_toastie = loadImage('ingredients/diced_toastie.png');
   diced_wailotte = loadImage('ingredients/wailotte_chopped.png');
   ground_cubloaf = loadImage('ingredients/cubloaf_ground.png');
   ground_nibbleaf = loadImage('ingredients/nibbleaf_ground.png');
@@ -251,7 +251,7 @@ function render_item(x,y,w,player){
       image(diced_sugarpop,x-w*0.8,y-w*4.4,w*1.6,w*1.6);
     }
     else if (player.item == "diced_toastie"){
-      image(diced_toastie,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+      image(diced_toastie,x-w*0.8,y-w*4.3,w*1.6,w*1.6);
     }
     else if (player.item == "diced_wailotte"){
       image(diced_wailotte,x-w*0.9,y-w*4.4,w*1.8,w*1.8);
