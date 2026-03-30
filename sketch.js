@@ -14,11 +14,7 @@ let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_ni
 let current_recepie_index = -1
 let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
-let cubloaf,nibbleaf,sugarpop,toastie,wailotte;
-let diced_cubloaf,diced_nibbleaf,diced_sugarpop,diced_toastie,diced_wailotte;
-let ground_cubloaf,ground_nibbleaf,ground_sugarpop,ground_toastie,ground_wailotte;
-let cooked_diced_cubloaf,cooked_diced_nibbleaf,cooked_diced_sugarpop,cooked_diced_toastie,cooked_diced_wailotte;
-let cooked_ground_cubloaf,cooked_ground_nibbleaf,cooked_ground_sugarpop,cooked_ground_toastie,cooked_ground_wailotte;
+
 
 function preload(){
   level = loadImage('Level.png');
@@ -33,13 +29,26 @@ function preload(){
   sugarpop = loadImage('ingredients/sugarpop.png');
   toastie = loadImage('ingredients/toastie.png');
   wailotte = loadImage('ingredients/wailotte.png');
-  diced_wailotte = loadImage('ingredients/wailotte_chopped.png');
   diced_cubloaf = loadImage('ingredients/cubloaf_chopped.png');
   diced_nibbleaf = loadImage('ingredients/nibbleaf_chopped.png');
+  diced_sugarpop = loadImage('ingredients/test_image.png');
+  diced_toastie = loadImage('ingredients/test_image.png');
+  diced_wailotte = loadImage('ingredients/wailotte_chopped.png');
   ground_cubloaf = loadImage('ingredients/cubloaf_ground.png');
   ground_nibbleaf = loadImage('ingredients/nibbleaf_ground.png');
+  ground_sugarpop = loadImage('ingredients/test_image.png');
   ground_toastie = loadImage('ingredients/toastie_ground.png');
   ground_wailotte = loadImage('ingredients/wailotte_ground.png');
+  cooked_diced_cubloaf = loadImage('ingredients/test_image.png');
+  cooked_diced_nibbleaf = loadImage('ingredients/test_image.png');
+  cooked_diced_sugarpop = loadImage('ingredients/test_image.png');
+  cooked_diced_toastie = loadImage('ingredients/test_image.png');
+  cooked_diced_wailotte = loadImage('ingredients/test_image.png');
+  cooked_ground_cubloaf = loadImage('ingredients/test_image.png');
+  cooked_ground_nibbleaf = loadImage('ingredients/test_image.png');
+  cooked_ground_sugarpop = loadImage('ingredients/test_image.png');
+  cooked_ground_toastie = loadImage('ingredients/test_image.png');
+  cooked_ground_wailotte = loadImage('ingredients/test_image.png');
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
@@ -217,14 +226,8 @@ function render_item(x,y,w,player){
     //render bubble
     image(bubble,x-w*1.5,y-w*5,w*3,w*3);
     //render item
-    if (player.item == "wailotte"){
-      image(wailotte,x-w*0.95,y-w*4.95,w*2.3,w*2.3);
-    }
-    else if (player.item == "cubloaf"){
+    if (player.item == "cubloaf"){
       image(cubloaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
-    }
-    else if (player.item == "toastie"){
-      image(toastie,x-w*0.77,y-w*4.3,w*1.6,w*1.6);
     }
     else if (player.item == "nibbleaf"){
       image(nibbleaf,x-w*0.85,y-w*4.5,w*1.8,w*1.8);
@@ -232,8 +235,11 @@ function render_item(x,y,w,player){
     else if (player.item == "sugarpop"){
       image(sugarpop,x-w*0.9,y-w*4.6,w*1.8,w*1.8);
     }
-    else if (player.item == "diced_wailotte"){
-      image(diced_wailotte,x-w*0.9,y-w*4.4,w*1.8,w*1.8);
+    else if (player.item == "toastie"){
+      image(toastie,x-w*0.77,y-w*4.3,w*1.6,w*1.6);
+    }
+    else if (player.item == "wailotte"){
+      image(wailotte,x-w*0.95,y-w*4.95,w*2.3,w*2.3);
     }
     else if (player.item == "diced_cubloaf"){
       image(diced_cubloaf,x-w*0.8,y-w*4.3,w*1.6,w*1.6);
@@ -241,8 +247,29 @@ function render_item(x,y,w,player){
     else if (player.item == "diced_nibbleaf"){
       image(diced_nibbleaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
     }
+    else if (player.item == "diced_sugarpop"){
+      image(diced_sugarpop,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+    }
+    else if (player.item == "diced_toastie"){
+      image(diced_toastie,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+    }
+    else if (player.item == "diced_wailotte"){
+      image(diced_wailotte,x-w*0.9,y-w*4.4,w*1.8,w*1.8);
+    }
     else if (player.item == "ground_cubloaf"){
       image(ground_cubloaf,x-w*0.8,y-w*4.4,w*1.6,w*1.6);
+    }
+    else if (player.item == "ground_nibbleaf"){
+      image(ground_nibbleaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+    }
+    else if (player.item == "ground_sugarpop"){
+      image(ground_sugarpop,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+    }
+    else if (player.item == "ground_toastie"){
+      image(ground_toastie,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+    }
+    else if (player.item == "ground_wailotte"){
+      image(ground_wailotte,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
     }
   }
 }
@@ -440,7 +467,7 @@ function draw() {
     stove2.timer += 1
   }
   //detect finished processes
-  if (dialogue.counter > 60*3 && keyIsDown(67) && keyIsDown(190)){
+  if (dialogue.counter > 60*2 && keyIsDown(67) && keyIsDown(190)){
     dialogue.bool = false
     dialogue.counter = 0
   }
@@ -644,7 +671,7 @@ function draw() {
   //render recepie
   for(let i = 1; i < current_recepie.length; i+=1){
     image(UI,windowWidth-100*i,0, 100,100);
-    console.log(current_recepie[i], image(current_recepie[i]));
+    console.log(current_recepie[i]);
     //image(current_recepie[i],windowWidth-100*i,0, 100,100);
   }
 
