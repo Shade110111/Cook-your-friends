@@ -386,7 +386,7 @@ function add_to_till(input_item){
     setup_new_recepie() //start game
   }
   for (let i = 0; i < current_recepie.length;i+=1){
-    print(current_recepie[i]);
+    //print(current_recepie[i]); //uncomment to check recepie
     if (input_item == current_recepie[i]){
       current_recepie.splice(i,1)//startedit, delete count, item to replace
     }
@@ -639,7 +639,10 @@ function draw() {
   render_dialogue();
 
   //render recepie
-  image(UI,windowWidth-100,0, 100,100);
+  for(let i = 1; i < current_recepie.length; i+=1){
+    image(UI,windowWidth-100*i,0, 100,100);
+    image(current_recepie[i],windowWidth-100*i,0, 100,100);
+  }
 
   //render controls
   fill(170,175,84);
