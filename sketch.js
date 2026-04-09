@@ -1,4 +1,4 @@
-let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0,freeze: false}
+let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"ground_cubloaf",frame_counter:0,subframe_counter:0,freeze: false}
 let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0, freeze: false}
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
@@ -10,7 +10,8 @@ let stove1 = {timer:0,item:"none",state:"ready",player:player2}//state can be re
 let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready or processing
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
-let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"],["nibble springs salad","diced_nibbleaf","cooked_ground_sugarpop","diced_wailotte"]]
+let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"],["nibble springs salad","diced_nibbleaf","cooked_ground_sugarpop","diced_wailotte"],["Boucher's casserole","cooked_ground_cubloaf","cooked_diced_wailotte","cooked_diced_toastie","cooked_diced_nibbleaf"]]
+let number_of_recepies = 6
 let current_recepie_index = -1
 let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
@@ -461,7 +462,7 @@ function add_to_till(input_item){
 function setup_new_recepie(){
   old_current_recepie_index = current_recepie_index
   while (current_recepie_index == old_current_recepie_index){
-    current_recepie_index = Math.floor(random(5)) //from 0 up to specified number but never specified number
+    current_recepie_index = Math.floor(random(number_of_recepies)) //from 0 up to specified number but never specified number
   }
   current_recepie = recepies[current_recepie_index] //current_recepie is the finished product followed by its ingredients
 }
