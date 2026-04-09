@@ -62,6 +62,7 @@ function preload(){
   player2_right = [loadImage('sugarpop_player/r1.png'),loadImage('sugarpop_player/r2.png'),loadImage('sugarpop_player/r3.png'),loadImage('sugarpop_player/r4.png')]
   //dialogue
   dialogue_intro = loadImage('dialogue/dialogue_intro.png');
+  dialogue_jiggly_burger = loadImage('dialogue/dialogue_intro.png');
 }
 
 function setup() {
@@ -307,7 +308,12 @@ function render_item(x,y,w,player){
 
 function render_dialogue(){
   //establish which dialogue to use
-  current_dialogue = dialogue_intro
+  if (current_recepie[0] == "jiggly burger"){
+    current_dialogue == dialogue_jiggly_burger
+  }
+  else{
+    current_dialogue = dialogue_intro
+  }
 
   //render dialogue
   if (dialogue.bool){
@@ -702,7 +708,7 @@ function draw() {
   //render recepie
   for(let i = 1; i < current_recepie.length; i+=1){
     image(UI,windowWidth-100*i,0, 100,100);
-    console.log(current_recepie[i]);
+    //console.log(current_recepie[i]);
     image(window[current_recepie[i]],windowWidth-100*i,0, 100,100); //note: idk what window[] does but it seems to convert strings to variable names
   } 
 
@@ -741,9 +747,12 @@ function draw() {
   //till
   circle(absolute_to_local_x(667),absolute_to_local_y(552),absolute_to_local_w(40));
   */
+
   //tracking
+  /*
   fill(0)
   text(player1.item,20,20);
   text(player2.item,20,40);
   text(current_recepie_index,20,60);
+  */
 }
