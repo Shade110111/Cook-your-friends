@@ -1,4 +1,4 @@
-let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0,freeze: false}
+let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"diced_toastie",frame_counter:0,subframe_counter:0,freeze: false}
 let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0, freeze: false}
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
@@ -32,11 +32,11 @@ function preload(){
   diced_cubloaf = loadImage('ingredients/cubloaf_chopped.png');
   diced_nibbleaf = loadImage('ingredients/nibbleaf_chopped.png');
   diced_sugarpop = loadImage('ingredients/diced_sugarpop.png');
-  diced_toastie = loadImage('ingredients/diced_toastie.png');
+  diced_toastie = loadImage('ingredients/toastie_chopped.png');
   diced_wailotte = loadImage('ingredients/wailotte_chopped.png');
   ground_cubloaf = loadImage('ingredients/cubloaf_ground.png');
   ground_nibbleaf = loadImage('ingredients/nibbleaf_ground.png');
-  ground_sugarpop = loadImage('ingredients/test_image.png');
+  ground_sugarpop = loadImage('ingredients/sugarpop_ground.png');
   ground_toastie = loadImage('ingredients/toastie_ground.png');
   ground_wailotte = loadImage('ingredients/wailotte_ground.png');
   cooked_diced_cubloaf = loadImage('ingredients/test_image.png');
@@ -251,7 +251,7 @@ function render_item(x,y,w,player){
       image(diced_sugarpop,x-w*0.8,y-w*4.4,w*1.6,w*1.6);
     }
     else if (player.item == "diced_toastie"){
-      image(diced_toastie,x-w*0.8,y-w*4.3,w*1.6,w*1.6);
+      image(diced_toastie,x-w*0.9,y-w*4.35,w*1.7,w*1.7);
     }
     else if (player.item == "diced_wailotte"){
       image(diced_wailotte,x-w*0.9,y-w*4.4,w*1.8,w*1.8);
@@ -263,7 +263,7 @@ function render_item(x,y,w,player){
       image(ground_nibbleaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
     }
     else if (player.item == "ground_sugarpop"){
-      image(ground_sugarpop,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+      image(ground_sugarpop,x-w*0.78,y-w*4.3,w*1.5,w*1.5);
     }
     else if (player.item == "ground_toastie"){
       image(ground_toastie,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
