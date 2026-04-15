@@ -15,7 +15,7 @@ let number_of_recepies = 6
 let current_recepie_index = -1
 let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
-//let recipe_done_animation = []
+let recipe_animation = {bool:false,counter:0,frame:0,number_of_repeats:0}
 
 function preload(){
   level = loadImage('Level.png');
@@ -64,7 +64,7 @@ function preload(){
   dialogue_intro = loadImage('dialogue/dialogue_intro.png');
   dialogue_jiggly_burger = loadImage('dialogue/dialogue_intro.png');
   //recipe done animation
-  /*recipe_done_animation = [
+  recipe_done_animation = [
     loadImage('recipe_done_animation/recipe_finish_animation1.png'),
     loadImage('recipe_done_animation/recipe_finish_animation2.png'),
     loadImage('recipe_done_animation/recipe_finish_animation3.png'),
@@ -77,7 +77,7 @@ function preload(){
     loadImage('recipe_done_animation/recipe_finish_animation10.png'),
     loadImage('recipe_done_animation/recipe_finish_animation11.png'),
     loadImage('recipe_done_animation/recipe_finish_animation12.png')
-  ];*/
+  ];
 }
 
 function setup() {
@@ -465,7 +465,7 @@ function cook(input_item,stove){
 
 function add_to_till(input_item){
   if (current_recepie_index == -1){
-    //play_recipe_done_animation()
+    play_recipe_done_animation()
     setup_new_recepie() //start of game
   }
   for (let i = 0; i < current_recepie.length;i+=1){
@@ -477,7 +477,7 @@ function add_to_till(input_item){
   //check if order is done
   if (current_recepie.length <= 1){
     //note: need to give money and points
-    //play_recipe_done_animation()
+    play_recipe_done_animation()
     setup_new_recepie()
   }
 }
@@ -491,24 +491,18 @@ function setup_new_recepie(){
 }
 
 function play_recipe_done_animation(){
-  /*
-  frame_counter = 0
-  for (let i = 0; frame_counter <= 12*6; i += 1){
-    if (i >= 20){
-      frame_counter += 1
-      i = 0
-    }
-    if (frame_counter >= 12){
-      frame_counter = 0
-    }
-    //image(recipe_done_animation[frame_counter],0,0,windowWidth,windowHeight)
+  recipe_animation.bool = true
+}
+
+function render_recipe_done_animation(){
+  if (recipe_animation.bool){
     if (windowWidth > windowHeight){
-      image(recipe_done_animation[frame_counter],0,((windowHeight-windowWidth)/-2),windowWidth,windowWidth);
+      image(recipe_done_animation[recipe_animation.frame],0,((windowHeight-windowWidth)/-2),windowWidth,windowWidth);
     }
     else{
-      image(recipe_done_animation[frame_counter],((windowWidth-windowHeight)/-2),0,windowHeight,windowHeight);
+      image(recipe_done_animation[recipe_animation.frame],((windowWidth-windowHeight)/-2),0,windowHeight,windowHeight);
     }
-  }*/
+  }
 }
 
 function draw() {
@@ -541,6 +535,9 @@ function draw() {
   if (stove2.state == "processing"){
     stove2.timer += 1
   }
+  if (recipe_animation.bool == true){
+    recipe_animation.counter += 1
+  }
   //detect finished processes
   if (dialogue.counter > 60*2 && keyIsDown(67) && keyIsDown(190)){
     dialogue.bool = false
@@ -570,6 +567,22 @@ function draw() {
     stove2.state = "ready"
     stove2.player.item = "cooked_"+stove2.item
     stove2.player.freeze = false
+  }
+  if (recipe_animation.counter > 5){
+    recipe_animation.counter = 0
+    if (recipe_animation.frame >= 12){
+      recipe_animation.frame = 0
+      recipe_animation.number_of_repeats += 1
+      print("frame:",recipe_animation.frame)
+      print("repeats:",recipe_animation.number_of_repeats)
+      if (recipe_animation.number_of_repeats >= 16){
+        recipe_animation.number_of_repeats = 0
+        recipe_animation.bool = false
+      }
+    }
+    else{
+      recipe_animation.frame += 1
+    }
   }
 
 
@@ -739,6 +752,9 @@ function draw() {
   //render held item/bubble
   render_item(absolute_to_local_x(player1.x),absolute_to_local_y(player1.y),absolute_to_local_w(15),player1);
   render_item(absolute_to_local_x(player2.x),absolute_to_local_y(player2.y),absolute_to_local_w(15),player2);
+
+  //render recipe complete animation
+  render_recipe_done_animation();
 
   //render dialogue
   render_dialogue();
