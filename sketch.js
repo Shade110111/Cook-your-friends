@@ -1,4 +1,4 @@
-let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"ground_cubloaf",frame_counter:0,subframe_counter:0,freeze: false}
+let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0,freeze: false}
 let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0, freeze: false}
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
@@ -15,7 +15,7 @@ let number_of_recepies = 6
 let current_recepie_index = -1
 let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
-
+//let recipe_done_animation = []
 
 function preload(){
   level = loadImage('Level.png');
@@ -63,6 +63,21 @@ function preload(){
   //dialogue
   dialogue_intro = loadImage('dialogue/dialogue_intro.png');
   dialogue_jiggly_burger = loadImage('dialogue/dialogue_intro.png');
+  //recipe done animation
+  /*recipe_done_animation = [
+    loadImage('recipe_done_animation/recipe_finish_animation1.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation2.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation3.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation4.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation5.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation6.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation7.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation8.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation9.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation10.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation11.png'),
+    loadImage('recipe_done_animation/recipe_finish_animation12.png')
+  ];*/
 }
 
 function setup() {
@@ -450,7 +465,8 @@ function cook(input_item,stove){
 
 function add_to_till(input_item){
   if (current_recepie_index == -1){
-    setup_new_recepie() //start game
+    //play_recipe_done_animation()
+    setup_new_recepie() //start of game
   }
   for (let i = 0; i < current_recepie.length;i+=1){
     //print(current_recepie[i]); //uncomment to check recepie
@@ -461,6 +477,7 @@ function add_to_till(input_item){
   //check if order is done
   if (current_recepie.length <= 1){
     //note: need to give money and points
+    //play_recipe_done_animation()
     setup_new_recepie()
   }
 }
@@ -471,6 +488,27 @@ function setup_new_recepie(){
     current_recepie_index = Math.floor(random(number_of_recepies)) //from 0 up to specified number but never specified number
   }
   current_recepie = recepies[current_recepie_index] //current_recepie is the finished product followed by its ingredients
+}
+
+function play_recipe_done_animation(){
+  /*
+  frame_counter = 0
+  for (let i = 0; frame_counter <= 12*6; i += 1){
+    if (i >= 20){
+      frame_counter += 1
+      i = 0
+    }
+    if (frame_counter >= 12){
+      frame_counter = 0
+    }
+    //image(recipe_done_animation[frame_counter],0,0,windowWidth,windowHeight)
+    if (windowWidth > windowHeight){
+      image(recipe_done_animation[frame_counter],0,((windowHeight-windowWidth)/-2),windowWidth,windowWidth);
+    }
+    else{
+      image(recipe_done_animation[frame_counter],((windowWidth-windowHeight)/-2),0,windowHeight,windowHeight);
+    }
+  }*/
 }
 
 function draw() {
