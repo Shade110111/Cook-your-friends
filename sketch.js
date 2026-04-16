@@ -497,10 +497,10 @@ function play_recipe_done_animation(){
 function render_recipe_done_animation(){
   if (recipe_animation.bool){
     if (windowWidth > windowHeight){
-      image(recipe_done_animation[recipe_animation.frame],0,((windowHeight-windowWidth)/-2),windowWidth,windowWidth);
+      image(recipe_done_animation[recipe_animation.frame],0,((windowHeight-windowWidth)/2),windowWidth,windowWidth);
     }
     else{
-      image(recipe_done_animation[recipe_animation.frame],((windowWidth-windowHeight)/-2),0,windowHeight,windowHeight);
+      image(recipe_done_animation[recipe_animation.frame],((windowWidth-windowHeight)/2),0,windowHeight,windowHeight);
     }
   }
 }
@@ -809,4 +809,5 @@ function draw() {
   text(player2.item,20,40);
   text(current_recepie_index,20,60);
   */
+ print(recipe_animation.bool)
 }
