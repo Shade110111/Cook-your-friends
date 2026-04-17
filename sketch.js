@@ -570,12 +570,10 @@ function draw() {
   }
   if (recipe_animation.counter > 5){
     recipe_animation.counter = 0
-    if (recipe_animation.frame >= 12){
+    if (recipe_animation.frame >= 11){ //12 frames, should switch if == index 11
       recipe_animation.frame = 0
       recipe_animation.number_of_repeats += 1
-      print("frame:",recipe_animation.frame)
-      print("repeats:",recipe_animation.number_of_repeats)
-      if (recipe_animation.number_of_repeats >= 16){
+      if (recipe_animation.number_of_repeats >= 3){
         recipe_animation.number_of_repeats = 0
         recipe_animation.bool = false
       }
