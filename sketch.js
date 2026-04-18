@@ -10,7 +10,7 @@ let stove1 = {timer:0,item:"none",state:"ready",player:player2}//state can be re
 let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready or processing
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
-let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"],["nibble springs salad","diced_nibbleaf","cooked_ground_sugarpop","diced_wailotte"],["Boucher's casserole","cooked_ground_cubloaf","cooked_diced_wailotte","cooked_diced_toastie","cooked_diced_nibbleaf"]]
+let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"],["nibble springs salad","diced_nibbleaf","ground_sugarpop","diced_wailotte"],["Boucher's casserole","cooked_ground_cubloaf","cooked_diced_wailotte","cooked_diced_toastie","cooked_diced_nibbleaf"]]
 let number_of_recepies = 6
 let current_recepie_index = -1
 let current_recepie = []
@@ -32,7 +32,7 @@ function preload(){
   wailotte = loadImage('ingredients/wailotte.png');
   diced_cubloaf = loadImage('ingredients/cubloaf_chopped.png');
   diced_nibbleaf = loadImage('ingredients/nibbleaf_chopped.png');
-  diced_sugarpop = loadImage('ingredients/diced_sugarpop.png');
+  diced_sugarpop = loadImage('ingredients/sugarpop_chopped.png');
   diced_toastie = loadImage('ingredients/toastie_chopped.png');
   diced_wailotte = loadImage('ingredients/wailotte_chopped.png');
   ground_cubloaf = loadImage('ingredients/cubloaf_ground.png');
@@ -40,16 +40,24 @@ function preload(){
   ground_sugarpop = loadImage('ingredients/sugarpop_ground.png');
   ground_toastie = loadImage('ingredients/toastie_ground.png');
   ground_wailotte = loadImage('ingredients/wailotte_ground.png');
-  cooked_diced_cubloaf = loadImage('ingredients/test_image.png');
+  cooked_diced_cubloaf = loadImage('ingredients/cubloaf_chopped_cooked.png');
   cooked_diced_nibbleaf = loadImage('ingredients/test_image.png');
   cooked_diced_sugarpop = loadImage('ingredients/test_image.png');
   cooked_diced_toastie = loadImage('ingredients/toastie_chopped_cooked.png');
   cooked_diced_wailotte = loadImage('ingredients/test_image.png');
-  cooked_ground_cubloaf = loadImage('ingredients/test_image.png');
+  cooked_ground_cubloaf = loadImage('ingredients/cubloaf_ground_cooked.png');
   cooked_ground_nibbleaf = loadImage('ingredients/test_image.png');
-  cooked_ground_sugarpop = loadImage('ingredients/test_image.png');
+  cooked_ground_sugarpop = loadImage('ingredients/sugarpop_ground_cooked.png');
   cooked_ground_toastie = loadImage('ingredients/test_image.png');
   cooked_ground_wailotte = loadImage('ingredients/test_image.png');
+  //dishes
+  classic_burger = loadImage('dishes/basic burger.png');
+  jiggly_burger = loadImage('dishes/jiggly burger.png');
+  curry = loadImage('dishes/Curry.png');
+  dumplings = loadImage('dishes/salad.png');
+  nibble_springs_salad = loadImage('dishes/jiggly burger.png');
+  skewers = loadImage('dishes/skewers.png');
+
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
