@@ -318,7 +318,7 @@ function render_item(x,y,w,player){
       image(cooked_ground_nibbleaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
     }
     else if (player.item == "cooked_ground_sugarpop"){
-      image(cooked_ground_sugarpop,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+      image(cooked_ground_sugarpop,x-w*0.78,y-w*4.3,w*1.5,w*1.5);
     }
     else if (player.item == "cooked_ground_toastie"){
       image(cooked_ground_toastie,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
