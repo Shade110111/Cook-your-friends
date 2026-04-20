@@ -41,7 +41,7 @@ function preload(){
   ground_toastie = loadImage('ingredients/toastie_ground.png');
   ground_wailotte = loadImage('ingredients/wailotte_ground.png');
   cooked_diced_cubloaf = loadImage('ingredients/cubloaf_chopped_cooked.png');
-  cooked_diced_nibbleaf = loadImage('ingredients/test_image.png');
+  cooked_diced_nibbleaf = loadImage('ingredients/nibbleaf_chopped_cooked.png');
   cooked_diced_sugarpop = loadImage('ingredients/test_image.png');
   cooked_diced_toastie = loadImage('ingredients/toastie_chopped_cooked.png');
   cooked_diced_wailotte = loadImage('ingredients/test_image.png');
