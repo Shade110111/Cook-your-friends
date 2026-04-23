@@ -509,11 +509,11 @@ function render_recipe_done_animation(){
   if (recipe_animation.bool){
     if (windowWidth > windowHeight){
       image(recipe_done_animation[recipe_animation.frame],0,((windowHeight-windowWidth)/2),windowWidth,windowWidth);
-      image(recepie_images[current_recepie_index],windowWidth/2-windowWidth/4,windowHeight/2-windowWidth/4,windowWidth/2,windowWidth/2);
+      image(recepie_images[current_recepie_index],windowWidth/2-windowWidth/6,windowHeight/2-windowWidth/6,windowWidth/3,windowWidth/3);
     }
     else{
       image(recipe_done_animation[recipe_animation.frame],((windowWidth-windowHeight)/2),0,windowHeight,windowHeight);
-      image(recepie_images[current_recepie_index],windowWidth/2-windowHeight/4,windowHeight/2-windowHeight/4,windowHeight/2,windowHeight/2);
+      image(recepie_images[current_recepie_index],windowWidth/2-windowHeight/6,windowHeight/2-windowHeight/6,windowHeight/3,windowHeight/3);
     }
   }
 }
