@@ -14,6 +14,7 @@ let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_ni
 let recepie_images = []
 let number_of_recepies = 6
 let current_recepie_index = -1
+let old_current_recepie_index = -1
 let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
 let recipe_animation = {bool:false,counter:0,frame:0,number_of_repeats:0}
@@ -476,7 +477,6 @@ function cook(input_item,stove){
 
 function add_to_till(input_item){
   if (current_recepie_index == -1){
-    play_recipe_done_animation()
     setup_new_recepie() //start of game
   }
   for (let i = 0; i < current_recepie.length;i+=1){
@@ -509,11 +509,11 @@ function render_recipe_done_animation(){
   if (recipe_animation.bool){
     if (windowWidth > windowHeight){
       image(recipe_done_animation[recipe_animation.frame],0,((windowHeight-windowWidth)/2),windowWidth,windowWidth);
-      image(recepie_images[current_recepie_index],windowWidth/2-windowWidth/6,windowHeight/2-windowWidth/6,windowWidth/3,windowWidth/3);
+      image(recepie_images[old_current_recepie_index],windowWidth/2-windowWidth/6,windowHeight/2-windowWidth/6,windowWidth/3,windowWidth/3);
     }
     else{
       image(recipe_done_animation[recipe_animation.frame],((windowWidth-windowHeight)/2),0,windowHeight,windowHeight);
-      image(recepie_images[current_recepie_index],windowWidth/2-windowHeight/6,windowHeight/2-windowHeight/6,windowHeight/3,windowHeight/3);
+      image(recepie_images[old_current_recepie_index],windowWidth/2-windowHeight/6,windowHeight/2-windowHeight/6,windowHeight/3,windowHeight/3);
     }
   }
 }
