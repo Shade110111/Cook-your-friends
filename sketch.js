@@ -26,6 +26,7 @@ function preload(){
   level_grinder_done = loadImage('Level_grinder_done.png');
   controls = loadImage('controls.png');
   UI = loadImage('UI background.png');
+  star = [loadImage('empty_star.png'),loadImage('star.png')];
   //items
   bubble = loadImage('bubble.png');
   cubloaf = loadImage('ingredients/cubloaf.png');
@@ -781,6 +782,11 @@ function draw() {
     //console.log(current_recepie[i]);
     image(window[current_recepie[i]],windowWidth-100*i,0, 100,100); //note: idk what window[] does but it seems to convert strings to variable names
   } 
+
+  //render stars NOTE: make these only appear during submission of recepie and maybe give animation
+  for(let i = 0; i < 5; i += 1){
+    image(star[0],100*i,0,100,100)
+  }
 
   //render controls
   fill(170,175,84);
