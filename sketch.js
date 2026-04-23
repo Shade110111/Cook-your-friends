@@ -11,11 +11,13 @@ let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be re
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
 let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"],["nibble springs salad","diced_nibbleaf","ground_sugarpop","diced_wailotte"],["Boucher's casserole","cooked_ground_cubloaf","cooked_diced_wailotte","cooked_diced_toastie","cooked_diced_nibbleaf"]]
+let recepie_images = []
 let number_of_recepies = 6
 let current_recepie_index = -1
 let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
 let recipe_animation = {bool:false,counter:0,frame:0,number_of_repeats:0}
+let run_once_bool = true
 
 function preload(){
   level = loadImage('Level.png');
@@ -54,9 +56,10 @@ function preload(){
   classic_burger = loadImage('dishes/basic burger.png');
   jiggly_burger = loadImage('dishes/jiggly burger.png');
   curry = loadImage('dishes/Curry.png');
-  dumplings = loadImage('dishes/salad.png');
-  nibble_springs_salad = loadImage('dishes/jiggly burger.png');
+  nibble_springs_salad = loadImage('dishes/salad.png');
+  Bouchers_casserole = loadImage('ingredients/test_image.png');
   skewers = loadImage('dishes/skewers.png');
+  
 
   //player1-cubloaf
   player1_back = [loadImage('cubloaf_player/b1.png'),loadImage('cubloaf_player/b2.png'),loadImage('cubloaf_player/b3.png'),loadImage('cubloaf_player/b4.png')]
@@ -506,15 +509,22 @@ function render_recipe_done_animation(){
   if (recipe_animation.bool){
     if (windowWidth > windowHeight){
       image(recipe_done_animation[recipe_animation.frame],0,((windowHeight-windowWidth)/2),windowWidth,windowWidth);
+      image(recepie_images[current_recepie_index],windowWidth/2-windowWidth/4,windowHeight/2-windowWidth/4,windowWidth/2,windowWidth/2);
     }
     else{
       image(recipe_done_animation[recipe_animation.frame],((windowWidth-windowHeight)/2),0,windowHeight,windowHeight);
+      image(recepie_images[current_recepie_index],windowWidth/2-windowHeight/4,windowHeight/2-windowHeight/4,windowHeight/2,windowHeight/2);
     }
   }
 }
 
 function draw() {
-  //reset delta values
+  //run once after preload before first frame
+  if (run_once_bool){
+    recepie_images.push(curry,skewers,jiggly_burger,classic_burger,nibble_springs_salad,Bouchers_casserole)
+    run_once_bool = false
+  }
+    //reset delta values
   player1.dx = 0
   player1.dy = 0
   player2.dx = 0
@@ -815,5 +825,4 @@ function draw() {
   text(player2.item,20,40);
   text(current_recepie_index,20,60);
   */
- print(recipe_animation.bool)
 }
