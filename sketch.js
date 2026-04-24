@@ -79,6 +79,19 @@ function preload(){
     loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping6.png'),
     loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping7.png')
   ]
+  player1_cooking = [loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking1.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking2.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking3.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking4.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking5.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking6.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking7.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking8.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking9.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking10.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking11.png'),
+    loadImage('cubloaf_player/cubloaf_player_cooking/cubloaf_player_cooking12.png'),
+  ]
   //player2-sugarpop
   player2_back = [loadImage('sugarpop_player/b1.png'),loadImage('sugarpop_player/b2.png'),loadImage('sugarpop_player/b3.png'),loadImage('sugarpop_player/b4.png')]
   player2_front = [loadImage('sugarpop_player/f1.png'),loadImage('sugarpop_player/f2.png'),loadImage('sugarpop_player/f3.png'),loadImage('sugarpop_player/f4.png')]
@@ -101,6 +114,19 @@ function preload(){
     loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping15.png'),
     loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping16.png'),
     loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping17.png'),
+  ]
+  player2_cooking = [loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking1.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking2.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking3.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking4.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking5.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking6.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking7.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking8.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking9.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking10.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking11.png'),
+    loadImage('sugarpop_player/sugarpop_player_cooking/sugarpop_player_cooking12.png'),
   ]
   //dialogue
   dialogue_intro = loadImage('dialogue/dialogue_intro.png');
@@ -247,6 +273,9 @@ function render_player(x,y,w,player){
     if (player1.chopping == true) {
       image(player1_chopping[(shared_cooking_shopping_frame_counter-(floor(shared_cooking_shopping_frame_counter/7)*7))],x-w*1.5,y-w*2.5,w*3,w*3)
     }
+    else if (player1.cooking == true) {
+      image(player1_cooking[(shared_cooking_shopping_frame_counter-(floor(shared_cooking_shopping_frame_counter/12)*12))],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
     else if (player1.sprite == "front") {
       image(player1_front[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
@@ -280,6 +309,9 @@ function render_player(x,y,w,player){
     //render player2
     if (player2.chopping == true) {
       image(player2_chopping[(shared_cooking_shopping_frame_counter-(floor(shared_cooking_shopping_frame_counter/17)*17))],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player2.cooking == true) {
+      image(player2_cooking[(shared_cooking_shopping_frame_counter-(floor(shared_cooking_shopping_frame_counter/12)*12))],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player2.sprite == "front") {
       image(player2_front[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
