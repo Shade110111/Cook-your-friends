@@ -1,5 +1,5 @@
-let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0,freeze: false}
-let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0, freeze: false}
+let player1 = {x:400,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0,freeze: false,cooking: false,chopping: false}
+let player2 = {x:624,y:512,dx:0,dy:0,colliding_flag:false,nearest_collision_circle:[0,0],circle_distance:0,circle_smallest_distance:9999,sprite:"front",item:"none",frame_counter:0,subframe_counter:0, freeze: false,cooking: false,chopping: false}
 let camera = {x:200,y:200,sw:0,sh:0} //sw = absoulte window width, sh = absoulte window height
 let move_speed = 1.4 //move speed is absolute units
 let corridor_width = 26
@@ -69,11 +69,37 @@ function preload(){
   player1_front = [loadImage('cubloaf_player/f1.png'),loadImage('cubloaf_player/f2.png'),loadImage('cubloaf_player/f3.png'),loadImage('cubloaf_player/f4.png')]
   player1_left = [loadImage('cubloaf_player/l1.png'),loadImage('cubloaf_player/l2.png'),loadImage('cubloaf_player/l3.png'),loadImage('cubloaf_player/l4.png')]
   player1_right = [loadImage('cubloaf_player/r1.png'),loadImage('cubloaf_player/r2.png'),loadImage('cubloaf_player/r3.png'),loadImage('cubloaf_player/r4.png')]
+  player1_chopping = [loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping1.png'),
+    loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping2.png'),
+    loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping3.png'),
+    loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping4.png'),
+    loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping5.png'),
+    loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping6.png'),
+    loadImage('cubloaf_player/cubloaf_player_chopping/cubloaf_player_chopping7.png')
+  ]
   //player2-sugarpop
   player2_back = [loadImage('sugarpop_player/b1.png'),loadImage('sugarpop_player/b2.png'),loadImage('sugarpop_player/b3.png'),loadImage('sugarpop_player/b4.png')]
   player2_front = [loadImage('sugarpop_player/f1.png'),loadImage('sugarpop_player/f2.png'),loadImage('sugarpop_player/f3.png'),loadImage('sugarpop_player/f4.png')]
   player2_left = [loadImage('sugarpop_player/l1.png'),loadImage('sugarpop_player/l2.png'),loadImage('sugarpop_player/l3.png'),loadImage('sugarpop_player/l4.png')]
   player2_right = [loadImage('sugarpop_player/r1.png'),loadImage('sugarpop_player/r2.png'),loadImage('sugarpop_player/r3.png'),loadImage('sugarpop_player/r4.png')]
+  player2_chopping = [loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping1.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping2.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping3.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping4.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping5.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping6.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping7.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping8.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping9.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping10.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping11.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping12.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping13.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping14.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping15.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping16.png'),
+    loadImage('sugarpop_player/sugarpop_player_chopping/sugarpop_player_chopping17.png'),
+  ]
   //dialogue
   dialogue_intro = loadImage('dialogue/dialogue_intro.png');
   dialogue_jiggly_burger = loadImage('dialogue/dialogue_intro.png');
