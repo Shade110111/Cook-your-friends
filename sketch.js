@@ -19,6 +19,7 @@ let current_recepie = []
 let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on current recepie
 let recipe_animation = {bool:false,counter:0,frame:0,number_of_repeats:0}
 let run_once_bool = true
+let earned_points = 0 //two points per star
 
 function preload(){
   level = loadImage('Level.png');
@@ -488,7 +489,7 @@ function add_to_till(input_item){
   }
   //check if order is done
   if (current_recepie.length <= 1){
-    //note: need to give money and points
+    earned_points+=1
     play_recipe_done_animation()
     setup_new_recepie()
   }
@@ -777,15 +778,26 @@ function draw() {
   render_dialogue();
 
   //render recepie
-  for(let i = 1; i < current_recepie.length; i+=1){
-    image(UI,windowWidth-100*i,0, 100,100);
-    //console.log(current_recepie[i]);
-    image(window[current_recepie[i]],windowWidth-100*i,0, 100,100); //note: idk what window[] does but it seems to convert strings to variable names
+  if (recipe_animation.bool==false) {
+    for(let i = 1; i < current_recepie.length; i+=1){
+      image(UI,windowWidth-100*i,0, 100,100);
+      //console.log(current_recepie[i]);
+      image(window[current_recepie[i]],windowWidth-100*i,0, 100,100); //note: idk what window[] does but it seems to convert strings to variable names
+    } 
   } 
 
-  //render stars NOTE: make these only appear during submission of recepie and maybe give animation
-  for(let i = 0; i < 5; i += 1){
-    image(star[0],100*i,0,100,100)
+  //render stars
+  if (recipe_animation.bool==true) {
+    stars = floor(earned_points/2)
+    for(let i = 0; i < 5; i += 1){
+      if (stars > 0){
+        stars -= 1
+        image(star[1],100*i,0,100,100)
+      }
+      else{
+        image(star[0],100*i,0,100,100)
+      }
+    }
   }
 
   //render controls
