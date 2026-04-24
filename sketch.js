@@ -20,6 +20,8 @@ let dialogue = {bool:true,counter:0} //what dialogue is displayed depends on cur
 let recipe_animation = {bool:false,counter:0,frame:0,number_of_repeats:0}
 let run_once_bool = true
 let earned_points = 0 //two points per star
+let shared_cooking_shopping_frame_counter = 0
+let shared_cooking_shopping_frame_subframecounter = 0
 
 function preload(){
   level = loadImage('Level.png');
@@ -215,6 +217,16 @@ function render_player(x,y,w,player){
   if (player.frame_counter >= 4){
     player.frame_counter = 0
   }
+
+  if (shared_cooking_shopping_frame_subframecounter >= 6){
+    shared_cooking_shopping_frame_subframecounter=0
+    shared_cooking_shopping_frame_counter += 1
+  } 
+  else{
+    shared_cooking_shopping_frame_subframecounter += 1
+  }
+
+
   
   if (player == player1){
     //check direction
@@ -232,7 +244,10 @@ function render_player(x,y,w,player){
     }
 
     //render player1
-    if (player1.sprite == "front") {
+    if (player1.chopping == true) {
+      image(player1_chopping[(shared_cooking_shopping_frame_counter-(floor(shared_cooking_shopping_frame_counter/7)*7))],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player1.sprite == "front") {
       image(player1_front[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player1.sprite == "back") {
@@ -244,6 +259,7 @@ function render_player(x,y,w,player){
     else if (player1.sprite == "left") {
       image(player1_left[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
+    
   
   }
   if (player == player2){
@@ -262,7 +278,10 @@ function render_player(x,y,w,player){
     }
 
     //render player2
-    if (player2.sprite == "front") {
+    if (player2.chopping == true) {
+      image(player2_chopping[(shared_cooking_shopping_frame_counter-(floor(shared_cooking_shopping_frame_counter/17)*17))],x-w*1.5,y-w*2.5,w*3,w*3)
+    }
+    else if (player2.sprite == "front") {
       image(player2_front[player.frame_counter],x-w*1.5,y-w*2.5,w*3,w*3)
     }
     else if (player2.sprite == "back") {
@@ -423,6 +442,7 @@ function interact(player,x,y){
             dice(player.item,board1)
             player.item = "none"
             player.freeze = true
+            player.chopping = true
           }
         }
       }
@@ -436,6 +456,7 @@ function interact(player,x,y){
             dice(player.item,board2)
             player.item = "none"
             player.freeze = true
+            player.chopping = true
           }
         }
       }
@@ -460,6 +481,7 @@ function interact(player,x,y){
             cook(player.item,stove1)
             player.item = "none"
             player.freeze = true
+            player.cooking = true
           }
         }
       }
@@ -473,6 +495,7 @@ function interact(player,x,y){
             cook(player.item,stove2)
             player.item = "none"
             player.freeze = true
+            player.cooking = true
           }
         }
       }
@@ -598,21 +621,25 @@ function draw() {
     board1.state = "ready"
     board1.player.item = "diced_"+board1.item
     board1.player.freeze = false
+    board1.player.chopping = false
   }
   if (board2.timer>=3*60 && board2.state == "processing"){
     board2.state = "ready"
     board2.player.item = "diced_"+board2.item
     board2.player.freeze = false
+    board2.player.chopping = false
   }
   if (stove1.timer>=4*60 && stove1.state == "processing"){
     stove1.state = "ready"
     stove1.player.item = "cooked_"+stove1.item
     stove1.player.freeze = false
+    stove1.player.cooking = false
   }
   if (stove2.timer>=4*60 && stove2.state == "processing"){
     stove2.state = "ready"
     stove2.player.item = "cooked_"+stove2.item
     stove2.player.freeze = false
+    stove2.player.cooking = false
   }
   if (recipe_animation.counter > 5){
     recipe_animation.counter = 0
