@@ -244,7 +244,7 @@ function render_player(x,y,w,player){
     player.frame_counter = 0
   }
 
-  if (shared_cooking_shopping_frame_subframecounter >= 6){
+  if (shared_cooking_shopping_frame_subframecounter >= 7){ //larger number here = slower cooking/chopping animations
     shared_cooking_shopping_frame_subframecounter=0
     shared_cooking_shopping_frame_counter += 1
   } 
