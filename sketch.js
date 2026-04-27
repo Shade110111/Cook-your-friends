@@ -570,6 +570,7 @@ function cook(input_item,stove){
 function add_to_till(input_item){
   if (current_recepie_index == -1){
     setup_new_recepie() //start of game
+    dialogue.bool = true
   }
   for (let i = 0; i < current_recepie.length;i+=1){
     //print(current_recepie[i]); //uncomment to check recepie
