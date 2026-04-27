@@ -130,7 +130,7 @@ function preload(){
   ]
   //dialogue
   dialogue_intro = loadImage('dialogue/dialogue_intro.png');
-  dialogue_jiggly_burger = loadImage('dialogue/dialogue_intro.png');
+  dialogue_jiggly_burger = loadImage('dialogue/cryptobro.png');
   dialogue_classic_burger = loadImage('dialogue/tiger.png');
   dialogue_skewers = loadImage('dialogue/chud.png');
   //recipe done animation
@@ -421,6 +421,9 @@ function render_dialogue(){
   }
   else if (current_recepie[0] == "skewers"){
     current_dialogue = dialogue_skewers
+  }
+  else if (current_recepie[0] == "jiggly burger"){
+    current_dialogue = dialogue_jiggly_burger
   }
   else{
     current_dialogue = dialogue_intro
