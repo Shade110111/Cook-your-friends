@@ -131,6 +131,8 @@ function preload(){
   //dialogue
   dialogue_intro = loadImage('dialogue/dialogue_intro.png');
   dialogue_jiggly_burger = loadImage('dialogue/dialogue_intro.png');
+  dialogue_classic_burger = loadImage('dialogue/tiger.png');
+  dialogue_skewers = loadImage('dialogue/chud.png');
   //recipe done animation
   recipe_done_animation = [
     loadImage('recipe_done_animation/recipe_finish_animation1.png'),
@@ -414,12 +416,16 @@ function render_item(x,y,w,player){
 
 function render_dialogue(){
   //establish which dialogue to use
-  if (current_recepie[0] == "jiggly burger"){
-    current_dialogue == dialogue_jiggly_burger
+  if (current_recepie[0] == "classic burger"){
+    current_dialogue = dialogue_classic_burger
+  }
+  else if (current_recepie[0] == "skewers"){
+    current_dialogue = dialogue_skewers
   }
   else{
     current_dialogue = dialogue_intro
   }
+  print(current_recepie[0])
 
   //render dialogue
   if (dialogue.bool){
@@ -681,6 +687,7 @@ function draw() {
       if (recipe_animation.number_of_repeats >= 3){
         recipe_animation.number_of_repeats = 0
         recipe_animation.bool = false
+        dialogue.bool = true
       }
     }
     else{
