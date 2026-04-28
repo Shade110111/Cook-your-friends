@@ -62,7 +62,7 @@ function preload(){
   jiggly_burger = loadImage('dishes/jiggly burger.png');
   curry = loadImage('dishes/Curry.png');
   nibble_springs_salad = loadImage('dishes/salad.png');
-  Bouchers_casserole = loadImage('ingredients/test_image.png');
+  Bouchers_casserole = loadImage('dishes/Casserole.png');
   skewers = loadImage('dishes/skewers.png');
   
 
@@ -133,6 +133,7 @@ function preload(){
   dialogue_jiggly_burger = loadImage('dialogue/cryptobro.png');
   dialogue_classic_burger = loadImage('dialogue/tiger.png');
   dialogue_skewers = loadImage('dialogue/chud.png');
+  dialogue_curry = loadImage('dialogue/president.png');
   //recipe done animation
   recipe_done_animation = [
     loadImage('recipe_done_animation/recipe_finish_animation1.png'),
@@ -425,10 +426,13 @@ function render_dialogue(){
   else if (current_recepie[0] == "jiggly burger"){
     current_dialogue = dialogue_jiggly_burger
   }
+  else if (current_recepie[0] == "curry"){
+    current_dialogue = dialogue_curry
+  }
   else{
     current_dialogue = dialogue_intro
   }
-  print(current_recepie[0])
+
 
   //render dialogue
   if (dialogue.bool){
