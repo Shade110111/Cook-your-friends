@@ -53,10 +53,10 @@ function preload(){
   cooked_diced_toastie = loadImage('ingredients/toastie_chopped_cooked.png');
   cooked_diced_wailotte = loadImage('ingredients/wailotte_chopped_cooked.png');
   cooked_ground_cubloaf = loadImage('ingredients/cubloaf_ground_cooked.png');
-  cooked_ground_nibbleaf = loadImage('ingredients/test_image.png');
+  cooked_ground_nibbleaf = loadImage('ingredients/nibbleaf_ground_cooked.png');
   cooked_ground_sugarpop = loadImage('ingredients/sugarpop_ground_cooked.png');
   cooked_ground_toastie = loadImage('ingredients/toastie_ground_cooked.png');
-  cooked_ground_wailotte = loadImage('ingredients/test_image.png');
+  cooked_ground_wailotte = loadImage('ingredients/wailotte_ground_cooked.png');
   //dishes
   classic_burger = loadImage('dishes/basic burger.png');
   jiggly_burger = loadImage('dishes/jiggly burger.png');
@@ -404,7 +404,7 @@ function render_item(x,y,w,player){
       image(cooked_ground_cubloaf,x-w*0.8,y-w*4.4,w*1.6,w*1.6);
     }
     else if (player.item == "cooked_ground_nibbleaf"){
-      image(cooked_ground_nibbleaf,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+      image(cooked_ground_nibbleaf,x-w*0.8,y-w*4.4,w*1.6,w*1.6);
     }
     else if (player.item == "cooked_ground_sugarpop"){
       image(cooked_ground_sugarpop,x-w*0.78,y-w*4.3,w*1.5,w*1.5);
@@ -413,7 +413,7 @@ function render_item(x,y,w,player){
       image(cooked_ground_toastie,x-w*0.8,y-w*4.4,w*1.6,w*1.6);
     }
     else if (player.item == "cooked_ground_wailotte"){
-      image(cooked_ground_wailotte,x-w*0.9,y-w*4.4,w*1.7,w*1.7);
+      image(cooked_ground_wailotte,x-w*0.8,y-w*4.4,w*1.6,w*1.6);
     }
   }
 }
