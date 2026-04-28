@@ -137,6 +137,7 @@ function preload(){
   dialogue_curry = loadImage('dialogue/president.png');
   dialogue_salad = loadImage('dialogue/influencer.png');
   dialogue_casserole = loadImage('dialogue/fathers.png');
+  dialogue_stew = loadImage('dialogue/singer.png');
   //recipe done animation
   recipe_done_animation = [
     loadImage('recipe_done_animation/recipe_finish_animation1.png'),
@@ -437,6 +438,9 @@ function render_dialogue(){
   }
   else if (current_recepie[0] == "Boucher's casserole"){
     current_dialogue = dialogue_casserole
+  }
+  else if (current_recepie[0] == "stew"){
+    current_dialogue = dialogue_stew
   }
   else{
     current_dialogue = dialogue_intro
