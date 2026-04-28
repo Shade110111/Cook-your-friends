@@ -430,7 +430,7 @@ function render_dialogue(){
   else if (current_recepie[0] == "curry"){
     current_dialogue = dialogue_curry
   }
-  else if (current_recepie[0] == "salad"){
+  else if (current_recepie[0] == "nibble springs salad"){
     current_dialogue = dialogue_salad
   }
   else{
