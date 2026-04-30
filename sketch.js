@@ -10,7 +10,7 @@ let stove1 = {timer:0,item:"none",state:"ready",player:player2}//state can be re
 let stove2 = {timer:0,item:"none",state:"ready",player:player2}//state can be ready or processing
 let grind_or_choppable_list = ["wailotte","toastie","sugarpop","nibbleaf","cubloaf"];
 let cookable_list = ["ground_wailotte","ground_toastie","ground_sugarpop","ground_nibbleaf","ground_cubloaf","diced_wailotte","diced_toastie","diced_sugarpop","diced_nibbleaf","diced_cubloaf"];
-let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte"],["jiggly burger","cooked_diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","cooked_diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"],["nibble springs salad","diced_nibbleaf","ground_sugarpop","diced_wailotte"],["Boucher's casserole","cooked_ground_cubloaf","cooked_diced_wailotte","cooked_diced_toastie","cooked_diced_nibbleaf"],["stew","cooked_ground_cubloaf","cooked_diced_wailotte","cooked_ground_wailotte","cooked_ground_toastie"]]
+let recepies = [["curry","cooked_diced_toastie","diced_cubloaf","cooked_diced_nibbleaf"],["skewers","cooked_diced_toastie","cooked_diced_nibbleaf","cooked_diced_wailotte","ground_nibbleaf"],["jiggly burger","cooked_diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","ground_sugarpop"],["classic burger","cooked_diced_cubloaf","cooked_ground_toastie","diced_nibbleaf","diced_wailotte"],["nibble springs salad","diced_nibbleaf","ground_sugarpop","diced_wailotte"],["Boucher's casserole","cooked_ground_cubloaf","cooked_diced_wailotte","cooked_diced_toastie","cooked_diced_nibbleaf"],["stew","cooked_ground_cubloaf","cooked_diced_wailotte","cooked_ground_wailotte","cooked_ground_toastie"]]
 let recepie_images = []
 let number_of_recepies = 7
 let current_recepie_index = -1
@@ -22,6 +22,7 @@ let run_once_bool = true
 let earned_points = 0 //two points per star
 let shared_cooking_shopping_frame_counter = 0
 let shared_cooking_shopping_frame_subframecounter = 0
+let music_bool = false
 
 function preload(){
   level = loadImage('Level.png');
@@ -153,6 +154,7 @@ function preload(){
     loadImage('recipe_done_animation/recipe_finish_animation11.png'),
     loadImage('recipe_done_animation/recipe_finish_animation12.png')
   ];
+  music = loadSound('set it aside.wav')
 }
 
 function setup() {
@@ -164,6 +166,15 @@ function setup() {
 
 function windowResized() {
   resizeCanvas(windowWidth,windowHeight);
+}
+
+function mouseClicked(){  //enable music
+  if (music_bool == false){
+    music.loop();
+    music.amp(0.15); 
+    music_bool = true
+    noCursor()
+  }
 }
 
 function diff(a,b){ //quickly find the difference between two values
