@@ -157,6 +157,7 @@ function preload(){
   //sounds
   music = loadSound('set it aside.wav')
   bubble_pop = [loadSound('Bubble/bubble1.mp3'),loadSound('Bubble/bubble2.mp3'),loadSound('Bubble/bubble3.mp3')];
+  bubble_form = [loadSound('Bubble/bubble_forming1.mp3'),loadSound('Bubble/bubble_forming2.mp3')];
 }
 
 function setup() {
@@ -173,7 +174,7 @@ function windowResized() {
 function mouseClicked(){  //enable music
   if (music_bool == false){
     music.loop();
-    music.amp(0.15); 
+    music.amp(0.2); 
     music_bool = true
     noCursor()
   }
@@ -477,22 +478,40 @@ function interact(player,x,y){
   if (player.item == "none"){
     //pickup checks
     if (sqrt(sq(abs(x-(442)))+sq(abs(y-(634))))<40/2){
+      if (player.item=="none"){
+        bubble_form[floor(random(0,2))].play()
+      }
       player.item = "nibbleaf"
     }
     else if (sqrt(sq(abs(x-(376)))+sq(abs(y-(590))))<30/2){
+      if (player.item=="none"){
+        bubble_form[floor(random(0,2))].play()
+      }
       player.item = "sugarpop"
     }
     else if (sqrt(sq(abs(x-(348)))+sq(abs(y-(600))))<30/2){
+      if (player.item=="none"){
+        bubble_form[floor(random(0,2))].play()
+      }
       player.item = "toastie"
     }
     else if (sqrt(sq(abs(x-(315)))+sq(abs(y-(610))))<40/2){
+      if (player.item=="none"){
+        bubble_form[floor(random(0,2))].play()
+      }
       player.item = "wailotte"
     }
     else if (sqrt(sq(abs(x-(410)))+sq(abs(y-(665))))<40/2){
+      if (player.item=="none"){
+        bubble_form[floor(random(0,2))].play()
+      }
       player.item = "cubloaf"
     }
     else if (sqrt(sq(abs(x-(564)))+sq(abs(y-(495))))<40/2){
       if (grinder.state == "done"){
+      if (player.item=="none"){
+        bubble_form[floor(random(0,2))].play()
+      }
       player.item = grinder.item
       grinder.state = "ready"
       }
