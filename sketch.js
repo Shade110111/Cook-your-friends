@@ -154,7 +154,9 @@ function preload(){
     loadImage('recipe_done_animation/recipe_finish_animation11.png'),
     loadImage('recipe_done_animation/recipe_finish_animation12.png')
   ];
+  //sounds
   music = loadSound('set it aside.wav')
+  bubble_pop = [loadSound('Bubble/bubble1.mp3'),loadSound('Bubble/bubble2.mp3'),loadSound('Bubble/bubble3.mp3')];
 }
 
 function setup() {
@@ -500,6 +502,9 @@ function interact(player,x,y){
     //drop checks
     if (sqrt(sq(abs(x-(405)))+sq(abs(y-(555))))<40/2){
       //bin
+      if (player.item!="none"){
+        bubble_pop[floor(random(0,3))].play()
+      }
       player.item = "none"
     }
     else if (sqrt(sq(abs(x-(332)))+sq(abs(y-(486))))<30/2){
@@ -509,6 +514,9 @@ function interact(player,x,y){
           if (player.item == grind_or_choppable_list[i]){
             board1.player = player
             dice(player.item,board1)
+            if (player.item!="none"){
+              bubble_pop[floor(random(0,3))].play()
+            }
             player.item = "none"
             player.freeze = true
             player.chopping = true
@@ -523,6 +531,9 @@ function interact(player,x,y){
           if (player.item == grind_or_choppable_list[i]){
             board2.player = player
             dice(player.item,board2)
+            if (player.item!="none"){
+              bubble_pop[floor(random(0,3))].play()
+            }
             player.item = "none"
             player.freeze = true
             player.chopping = true
@@ -536,6 +547,9 @@ function interact(player,x,y){
         for (let i = 0; i < grind_or_choppable_list.length; i += 1){ //only allows inputs on this list
           if (player.item == grind_or_choppable_list[i]){
             grind(player.item)
+            if (player.item!="none"){
+              bubble_pop[floor(random(0,3))].play()
+            }
             player.item = "none"
           }
         }
@@ -548,6 +562,9 @@ function interact(player,x,y){
           if (player.item == cookable_list[i]){
             stove1.player = player
             cook(player.item,stove1)
+            if (player.item!="none"){
+              bubble_pop[floor(random(0,3))].play()
+            }
             player.item = "none"
             player.freeze = true
             player.cooking = true
@@ -562,6 +579,9 @@ function interact(player,x,y){
           if (player.item == cookable_list[i]){
             stove2.player = player
             cook(player.item,stove2)
+            if (player.item!="none"){
+              bubble_pop[floor(random(0,3))].play()
+            }
             player.item = "none"
             player.freeze = true
             player.cooking = true
@@ -573,6 +593,9 @@ function interact(player,x,y){
   if (sqrt(sq(abs(x-(667)))+sq(abs(y-(552))))<40/2){
     //till
     add_to_till(player.item)
+    if (player.item!="none"){
+      bubble_pop[floor(random(0,3))].play()
+    }
     player.item = "none"
   }
 }
@@ -638,6 +661,7 @@ function render_recipe_done_animation(){
     }
   }
 }
+
 
 function draw() {
   //run once after preload before first frame
