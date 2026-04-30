@@ -1,20 +1,16 @@
 # Cook-your-friends
-Shade notes: unit is the average of the height and width of the screen, use it for all scaling and co-ordinates.
 
-shade notes: original code attempted to make many coordinates relative to the center of the screen, however this was very buggy and confusing due to my making a robust system that allows the screen to work in any aspect ratio and be adjustabe live.
+In our game 'Eat Your Friends' you play as two level 2 creatures (Boucher and Grillard) that must chop, grind and cook food for cannabalistic level 3 customers, the food you serve them are level 1 and your goal is to reach level 3 and evolve to become like the customers you serve, but as you talk to them you may change your mind or you may not about this goal.
 
-shade notes: unit was a really bad idea and caused bars on the top and bottom of the screen if not perfectly square, code has been reworked to use absolute coordinates and then modify their position as rendered while the real level isnt rendered, zoom is dynamic, resizing the window does not appear to move sprites differently and zoom is handeled by using a subsection of the background instead of rendering the whole thing offset and larger.
+For example the Tiger Mom is a caricature of a stereotypical ‘helicopter parent’ as most commonly represented by popular culture, She is based on our concerns regarding unrealistic and misplaced expectations, too much hard love will make someone subservient to any power, easy to manipulate and lacking agency. This of course is a highly beneficial trait for certain people to cultivate in others 'Daddy has arrived and he is taking his belt off' (Mel Gibson describing Donald Trump). In multiple countries, students are frequently subjected to life-altering exams such as the gaokao in China and the CSATs in Korea. The issue is that wellbeing is neglected in favour of scores and performances, lives reduced to predicted economic return on investment.
 
-shade notes: mac dosent care about capitals in filenames so if switching to windows or linux and getting odd loading errors it could be because a file is referenced wrong.
+The REAL President is intended to be an AI representation of a president spread around to misinform and sway votes, misinformation and selective information are rampant and corporations often have more say over policies than voters.
 
-shade notes: the original map has small corridoors and ramps, these would be fine if I could get sliding collision working that takes the component of the force, however as this would require normals for a collision mesh which would be quite costly and difficult to impliment I have opted for a more simple form of collision that stops illegal displacement, this however makes the walls feel sticky instead of slidey and so I have requested that the small corridoors be replaced with wider ones so the player is less likely to be annoyed by them.
-
-shade notes: morgan did the creatures and player, mikayla did half the map and some food, shade did half the map and the code
-
-shade note: not only is the game a metaphor for gaining power by taking advantage of defensless masses to appeal to the powerful few but also a commentry on eating intelegent beings and reminding us that we are animals, the game is not designed to be grusome just as the food industry isn't, however we hope the public display of cannibalism may change peoples minds about the food they eat and the mindsets of powerful people that take advantage of them, they know exactly what they are doing.
-
-shade note: https://www.toptal.com/developers/keycode is dope
-
-shade note: fixed a bug where stoves and chopping boards could only be used once becuase their state was set to done and not ready upon completion.
-
-shade note: make the diced onions look better
+shade notes (short version): 
+unit is average height and width of the screen and is the basis for all scaling and coordinates.
+unit was a terrible idea that caused bars on the sides of the screen, now I am using absolute coordinates and then editing how they are presented to the player via a camera rather than moving everything relative to the camera.
+mac os ignores capital file names, i found out the hard way linux and windows do care.
+original map has slim corridoors and ramps, however my collision solution will be more accurate and performant with larger corridoors, this method takes two points  per corredoor, draws a line between them and scatters circles along the line to create a pill shape, the game constantly keeps track of the last nearest circle center point so if the player leaves a circle area they are nudged back towards the last nearest circle center point with a force that increases as they get further away (for smoother collisions), so therefore the wider the corredoors the fewer circles needed for the same length.
+failed collision atempts include a Mario 64 style force feild area on every wall that pushes you out or vector math solutions that arent very performant or optimal for a mostly round sloping level such as this one.
+the game is about gaining power by taking advantage of the defensless to appeal to the powerful few, but constantly asks the question of do we want to be like them at all and should we be better. It also explores eating intelegent beings, humans think themselves above animals but this is not true and the game is adamant about this.
+https://www.toptal.com/developers/keycode was used to find js keycodes
