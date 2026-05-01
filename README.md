@@ -1,6 +1,6 @@
 # Cook-your-friends
 
-In our game 'Eat Your Friends' you play as two level 2 creatures (Boucher and Grillard) that must chop, grind and cook food for cannabalistic level 3 customers, the food you serve them are level 1 and your goal is to reach level 3 and evolve to become like the customers you serve, but as you talk to them you may change your mind or you may not about this goal.
+In our game 'Eat Your Friends' you play as two level 2 creatures (Boucher and Grillard) that must chop, grind and cook food for cannibalistic level 3 customers, the food you serve them are level 1 and your goal is to reach level 3 and evolve to become like the customers you serve, but as you talk to them you may change your mind or you may not about this goal.
 
 For example the Tiger Mom is a caricature of a stereotypical ‘helicopter parent’ as most commonly represented by popular culture, She is based on our concerns regarding unrealistic and misplaced expectations, too much hard love will make someone subservient to any power, easy to manipulate and lacking agency. This of course is a highly beneficial trait for certain people to cultivate in others 'Daddy has arrived and he is taking his belt off' (Mel Gibson describing Donald Trump). In multiple countries, students are frequently subjected to life-altering exams such as the gaokao in China and the CSATs in Korea. The issue is that wellbeing is neglected in favour of scores and performances, lives reduced to predicted economic return on investment.
 
