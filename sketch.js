@@ -155,9 +155,10 @@ function preload(){
     loadImage('recipe_done_animation/recipe_finish_animation12.png')
   ];
   //sounds
-  music = loadSound('set it aside.wav')
+  music = loadSound('set it aside.wav');
   bubble_pop = [loadSound('Bubble/bubble1.mp3'),loadSound('Bubble/bubble2.mp3'),loadSound('Bubble/bubble3.mp3')];
   bubble_form = [loadSound('Bubble/bubble_forming1.mp3'),loadSound('Bubble/bubble_forming2.mp3')];
+  grinder_sound = loadSound('meat_grinder.mp3');
 }
 
 function setup() {
@@ -568,6 +569,7 @@ function interact(player,x,y){
             grind(player.item)
             if (player.item!="none"){
               bubble_pop[floor(random(0,3))].play()
+              grinder_sound.play()
             }
             player.item = "none"
           }
