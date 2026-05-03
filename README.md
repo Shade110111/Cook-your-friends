@@ -1,16 +1,38 @@
 # Cook-your-friends
+Eat Your Friends
 
-In our game 'Eat Your Friends' you play as two level 2 creatures (Boucher and Grillard) that must chop, grind and cook food for cannibalistic level 3 customers, the food you serve them are level 1 and your goal is to reach level 3 and evolve to become like the customers you serve, but as you talk to them you may change your mind or you may not about this goal.
+Live site: https://shade110111.github.io/EatYourFriends/
+GitHub repo: https://github.com/Shade110111/EatYourFriends
 
-For example the Tiger Mom is a caricature of a stereotypical ‘helicopter parent’ as most commonly represented by popular culture, She is based on our concerns regarding unrealistic and misplaced expectations, too much hard love will make someone subservient to any power, easy to manipulate and lacking agency. This of course is a highly beneficial trait for certain people to cultivate in others 'Daddy has arrived and he is taking his belt off' (Mel Gibson describing Donald Trump). In multiple countries, students are frequently subjected to life-altering exams such as the gaokao in China and the CSATs in Korea. The issue is that wellbeing is neglected in favour of scores and performances, lives reduced to predicted economic return on investment.
+Members: Shade(Edmond) Rickard, Mikaela, Morgan
 
-The REAL President is intended to be an AI representation of a president spread around to misinform and sway votes, misinformation and selective information are rampant and corporations often have more say over policies than voters.
+number of unique sprites/lines of code are listed in brackets
+Edmond Rickard (Shade):
+all code (≈980 lines), touch ups on most art assets, all dialogue text (8), all customer art (7), all UI elements apart from the dialogue box (4), background music, yellow glow animation upon completing a recipe (12), player1 chopping animation (5),player1 cooking animation (9), player2 chopping animation (9), player2 cooking animation (9), bubble sprite, uncooked diced sugarpop sprite,  map art (3 layers for occlusion and grinder alt)
 
-shade notes (short version): 
-unit is average height and width of the screen and is the basis for all scaling and coordinates.
-unit was a terrible idea that caused bars on the sides of the screen, now I am using absolute coordinates and then editing how they are presented to the player via a camera rather than moving everything relative to the camera.
-mac os ignores capital file names, i found out the hard way linux and windows do care.
-original map has slim corridoors and ramps, however my collision solution will be more accurate and performant with larger corridoors, this method takes two points  per corredoor, draws a line between them and scatters circles along the line to create a pill shape, the game constantly keeps track of the last nearest circle center point so if the player leaves a circle area they are nudged back towards the last nearest circle center point with a force that increases as they get further away (for smoother collisions), so therefore the wider the corredoors the fewer circles needed for the same length.
-failed collision atempts include a Mario 64 style force feild area on every wall that pushes you out or vector math solutions that arent very performant or optimal for a mostly round sloping level such as this one.
-the game is about gaining power by taking advantage of the defensless to appeal to the powerful few, but constantly asks the question of do we want to be like them at all and should we be better. It also explores eating intelegent beings, humans think themselves above animals but this is not true and the game is adamant about this.
-https://www.toptal.com/developers/keycode was used to find js keycodes
+In Seong Wong (Mikaela):
+green dialogue box art, all final dish art (7), most uncooked ground/chopped ingredient art (8), most cooked ground/chopped ingredient art (9), map prototype art (2), bubble sound effects (5), grinder sound effect
+
+Mikaela + Shade collaborative work:
+original idea, ground cooked cubloaf sprite, ground uncooked sugarpop sprite, sliced uncooked cubloaf sprite
+
+Morgan:
+original species designs (base ingredients) (5), player1 sprites (7), player2 sprites (7)
+
+Introduction:
+In our game 'Eat Your Friends' you play as two level 2 creatures (Boucher and Grillard) that must chop, grind and cook food for cannibalistic level 3 customers, the food you serve them are level 1 creatures and your goal (as a level 2) is to reach level 3 and evolve to become like the customers you serve, but as you talk to them you may change your mind about this goal.
+
+Technical approach:
+Shade: the most challenging part of this was to make a collision and movement system that worked with a moving and dynamically zooming camera, the final system I created is very robust, you can even drag around and resize the game while playing and on any screen and everything will dynamically fit the screen.
+
+The collision function takes two coordinates, draws a line between them and scatters circles along the line to create a pill shape (a corridor), the game constantly keeps track of the last nearest circle centre point and if the player is within the radius of a circle, if the player is not within the radius of any circle (therefore outside a corridor) they are nudged back towards the last nearest circle centre point with a force that increases the further they are from the last nearest circle (this way walls feel a little squishy which makes colliding with them less jerky), the original map had much smaller corridors which were made much wider because this system is far more accurate and performant with wider corridors because fewer circles are needed for the same length of corridor.
+
+Many versions of collision were attempted and abandoned before using this one, including Mario 64 style and a more modern vector math style both of which suffered from the potential to get out of bounds and being optimised for straight levels not rounded ones.
+
+The originally I attempted to make all co-ordinates relative to the camera, the level would move opposite to the camera to imitate movement however this was a very hard confusing later in development so I started again with absolute co-ordinates, the camera instead acts after all collision and processes are complete, it draws a line between the two players to find the centre of the frame and it’s zoom is faked by scaling perceived coordinates and sprite sizes relative to the centre of the camera.
+
+Inspiration:
+The main source of inspiration is Pokémon, a series that bypasses the ethical concerns of forcing creatures to fight for sport by making them stupid. However in Eat Your Friends these creatures are more similar to babies who all have the capability to grow up and become intelligent. The visual style of the game however is meant to resemble a cooking game show or coliseum where violence is spectacle. Importantly the features of the modern world aren’t villainized, our goal isn’t to show people how much worse it could be but rather how bad it may already be.
+
+Collaboration:
+Shade: working on the code solo has been much less confusing than it would have been to share this responsibility, ideally I would have done only code and Mikaela and Morgan would have done only art however Morgan disappeared leaving Mikaela and I to do all his work for him (we did not give him credit for this work) and cut a few features such as upgrades in the form of fridge magnets to collect and a final ending screen once you attain all five stars. The original plan was that all the sound and animation would be done by Morgan, sprites by Mikaela and the map and code done by me however Morgan had not started sound when he disappeared.
